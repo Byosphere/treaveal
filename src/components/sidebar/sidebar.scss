@@ -1,0 +1,15 @@
+@import "../../style/variables.scss";
+
+.side-bar {
+    background: $blue-menu;
+    color: white;
+    .divider {
+        background: white;
+        margin: 0 6px;
+        opacity: 0.3;
+    }
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+}

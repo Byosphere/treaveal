@@ -1,0 +1,17 @@
+@import "../../style/variables.scss";
+
+.toolbox {
+    background: $blue-menu;
+    color: white;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-around;
+
+        li {
+            list-style: none;
+        }
+    }
+}

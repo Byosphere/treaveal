@@ -1,0 +1,34 @@
+{
+    "user": {},
+    "travels": [
+        {
+            "location": "China",
+            "name": "Travel to south China and Yunnan",
+            "created_date": "12/05/2018",
+            "plane_infos": {
+                
+            },
+            "people": [
+                {
+                    "id": 1,
+                    "name": "Yohann",
+                    "color": ""
+                },
+                {
+                    "id": 2,
+                    "name": "Maxime",
+                    "color": ""
+                }
+            ],
+            "days": [
+                {
+                    "date": "13 aout", 
+                    "people": [1,2],
+                    "activities": [
+
+                    ]
+                }
+            ]
+        }
+    ]
+}
