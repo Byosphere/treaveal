@@ -1,7 +1,10 @@
 import { SET_HOTEL } from '../Constants';
 
 const initialState = {
-    days: []
+    days: [
+        { id: 0 },
+        { id: 1 }
+    ]
 };
 
 export default (state = initialState, action) => {

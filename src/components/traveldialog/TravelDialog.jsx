@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { COUNTRY_CODES } from '../../Constants';
+import { getCountryFromCountryCode } from '../../utils/helpers';
 
 class TravelDialog extends React.Component {
 
@@ -10,7 +12,6 @@ class TravelDialog extends React.Component {
         this.state = {
             title: this.props.title || '',
             location: this.props.location || '',
-            daysNum: this.props.daysNum || ''
         }
 
         this.handleClose = this.handleClose.bind(this);
@@ -22,7 +23,7 @@ class TravelDialog extends React.Component {
     }
 
     handleSave() {
-        this.props.onSave(this.state.title, this.state.location, this.state.daysNum, null);
+        this.props.onSave(this.state.title, this.state.location);
     }
 
     handleChange(name, event) {
@@ -40,28 +41,26 @@ class TravelDialog extends React.Component {
                     <TextField
                         id="title"
                         label="Title"
-                        placeholder={this.state.title}
+                        value={this.state.title}
                         margin="normal"
                         fullWidth
                         onChange={(evt) => this.handleChange('title', evt)}
                     />
-                    <TextField
-                        id="location"
-                        label="Location"
-                        placeholder={this.state.location}
-                        margin="normal"
-                        fullWidth
-                        onChange={(evt) => this.handleChange('location', evt)}
-                    />
-                    <TextField
-                        id="daysNumber"
-                        label="Number of days"
-                        placeholder={this.state.daysNum + ''}
-                        margin="normal"
-                        fullWidth
-                        onChange={(evt) => this.handleChange('daysNum', evt)}
-                        type="number"
-                    />
+                    <FormControl>
+                        <InputLabel htmlFor="location">Trip country</InputLabel>
+                        <Select
+                            value={this.state.location}
+                            onChange={(evt) => this.handleChange('location', evt)}
+                            className="cover__input"
+                            inputProps={{
+                                name: 'location',
+                                id: 'location',
+                            }}>
+                            {COUNTRY_CODES.map((e, i) => (
+                                <MenuItem key={i} value={e.code}>{e.name}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleClose}>
@@ -79,8 +78,7 @@ class TravelDialog extends React.Component {
 function mapStateToProps(state) {
     return {
         title: state.travel.title,
-        location: state.travel.location,
-        daysNum: state.travel.daysNum
+        location: state.travel.location
     }
 }
 

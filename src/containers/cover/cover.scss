@@ -1,0 +1,39 @@
+@import "../../style/variables.scss";
+.cover {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 350px;
+        height: 100px;
+        background: $red-logo;
+        color: $white;
+        h1 {
+            font-weight: 300;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        span {
+            font-size: 0.7rem;
+        }
+    }
+    p {
+        color: $black;
+    }
+
+    &__input {
+        width: 350px;
+    }
+
+    button {
+        margin-top: 30px;
+    }
+}

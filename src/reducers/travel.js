@@ -1,11 +1,12 @@
 import { SET_TRAVEL_INFO, SET_HOTEL, SET_DAY, SET_CURRENT_DAY } from '../Constants';
 
 const initialState = {
+    init: false,
     notes: "",
     title: "",
     location: "",
-    daysNum: 0,
-    currentDay: 0
+    daysNum: 1,
+    currentDay: 1
 };
 
 export default (state = initialState, action) => {
@@ -13,20 +14,13 @@ export default (state = initialState, action) => {
 
         case SET_TRAVEL_INFO:
             return {
+                init: true,
                 notes: action.notes || state.notes,
                 location: action.location || state.location,
                 title: action.title || state.title,
                 daysNum: action.daysNum || state.daysNum,
                 currentDay: action.currentDay || state.currentDay
             };
-
-        // case SET_DAY:
-        //     if (action.num) {
-        //         state.days[action.num] = action.day
-        //     } else {
-        //         state.days.push(action.day)
-        //     }
-        //     return state;
 
         default:
             return state;

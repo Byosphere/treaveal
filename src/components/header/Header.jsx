@@ -8,6 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Edit from '@material-ui/icons/Edit';
 import TravelDialog from '../traveldialog/TravelDialog.jsx';
 import { saveTravelInfo } from '../../actions/travelActions';
+import { getCountryFromCountryCode } from '../../utils/helpers';
 
 class Header extends React.Component {
 
@@ -17,7 +18,7 @@ class Header extends React.Component {
         this.state = {
             open: false,
             title: this.props.title || '',
-            location: this.props.location || ''
+            location: getCountryFromCountryCode(this.props.location)
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -38,10 +39,10 @@ class Header extends React.Component {
     }
 
     handleSave(title, location, daysNum) {
-        this.props.saveTravelInfo(title, location, daysNum, null);
+        this.props.saveTravelInfo(title, location);
         this.setState({
             title: title,
-            location: location
+            location: getCountryFromCountryCode(location)
         });
         this.handleClose();
     }

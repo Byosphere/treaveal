@@ -6,6 +6,7 @@ import FaceIcon from '@material-ui/icons/Face';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Timeline from '../../components/timeline/Timeline.jsx';
 import Dashboard from '@material-ui/icons/Dashboard';
+import T from 'i18n-react';
 
 class MainPage extends React.Component {
 
@@ -47,7 +48,7 @@ class MainPage extends React.Component {
             return (
                 <section className="main-page">
                     <Timeline></Timeline>
-                    <div className="app-bar"><Dashboard /><h2>Vue d'ensemble</h2></div>
+                    <div className="app-bar"><Dashboard /><h2>{T.translate("overview")}</h2></div>
                     <div className="page-people">
                         <Chip
                             avatar={

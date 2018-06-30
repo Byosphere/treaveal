@@ -50,40 +50,6 @@ a.custom-icon-link {
 }
 
 
-.flight-details {
-  background: #03182b;
-}
-
-.flight-details h2 {
-  font-size: 1.2rem;
-  font-weight: 300;
-  margin: 0;
-  padding: 1rem 0;
-  text-align: center;
-  color: white;
-  background: #0a1f32;
-}
-
-.hotel-details {
-  margin: 5px;
-}
-
-.hotel-details .card {
-  width: 100%;
-  height: 100%;
-}
-
-.hotel-details .card.no-hotel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.hotel-details .image {
-  height: 150px;
-}
-
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -120,6 +86,40 @@ a.custom-icon-link {
 .app-header > div {
   width: auto;
   margin-right: 40px;
+}
+
+.flight-details {
+  background: #03182b;
+}
+
+.flight-details h2 {
+  font-size: 1.2rem;
+  font-weight: 300;
+  margin: 0;
+  padding: 1rem 0;
+  text-align: center;
+  color: white;
+  background: #0a1f32;
+}
+
+.hotel-details {
+  margin: 5px;
+}
+
+.hotel-details .card {
+  width: 100%;
+  height: 100%;
+}
+
+.hotel-details .card.no-hotel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hotel-details .image {
+  height: 150px;
 }
 
 
@@ -160,6 +160,10 @@ a.custom-icon-link {
 .side-bar ul {
   margin: 0;
   padding: 0;
+}
+
+.side-bar ul a.selected {
+  color: #cd3738;
 }
 
 .timeline {
@@ -216,6 +220,49 @@ a.custom-icon-link {
   list-style: none;
 }
 
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover .logo {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 100px;
+  color: #ebebeb;
+  background: #cd3738;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover .logo h1 {
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.cover .logo span {
+  font-size: .7rem;
+}
+
+.cover p {
+  color: #191919;
+}
+
+.cover__input {
+  width: 350px;
+}
+
+.cover button {
+  margin-top: 30px;
+}
 
 footer {
   border-top: 6px solid #cd3738;
@@ -291,11 +338,6 @@ footer {
 #home footer {
   grid-column: 1 / 5;
   grid-row: 5 / 5;
-}
-
-main,
-.wrapper {
-  height: 100%;
 }
 
 .main-page {
