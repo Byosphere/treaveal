@@ -73,6 +73,7 @@ class Header extends React.Component {
                 </div>
                 <TravelDialog open={this.state.open} onClose={this.handleClose} onSave={this.handleSave} />
                 <Chip
+                    className="departure"
                     avatar={
                         <Avatar>
                             <AccessTime />

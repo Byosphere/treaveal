@@ -26,20 +26,28 @@ body {
     height: 50px;
     width: 100%;
     background: $blue-menu;
-    border-left: 5px solid #113555;
-    border-right: 5px solid #113555;
     border-bottom: 7px solid #113555;
     display: flex;
     align-items: center;
     color: white;
     svg {
         margin: 0 0 0 10px;
+        margin-bottom: -7px;
     }
     h2 {
         margin: 0 0 0 10px;
         letter-spacing: 2px;
         font-weight: 300;
+        margin-bottom: -7px;
     }
+}
+
+.app-bar-right {
+    height: 50px;
+    width: 100%;
+    background: $blue-menu;
+    border-bottom: 7px solid #113555;
+    border-right: 5px solid #113555;
 }
 
 a.custom-icon-link {

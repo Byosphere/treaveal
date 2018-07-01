@@ -9,7 +9,7 @@ class Flight extends React.Component {
     render() {
         return (
             <section className="flight-details">
-               <h2>Flight details</h2>
+
             </section>
         );
     }

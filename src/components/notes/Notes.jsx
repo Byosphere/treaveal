@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { TextField, Card, CardContent, Button } from '@material-ui/core';
 import { saveTravelInfo } from '../../actions/travelActions';
+import T from 'i18n-react';
 
 class Notes extends React.Component {
 
@@ -39,7 +40,7 @@ class Notes extends React.Component {
                     <CardContent className="card-content">
                         <TextField
                             id="multiline-static"
-                            label="Notes"
+                            label={T.translate('notes')}
                             multiline
                             rows="4"
                             margin="none"

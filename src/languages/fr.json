@@ -23,5 +23,11 @@
     },
     "cancel": "annuler",
     "save": "enregistrer",
-    "delete": "Supprimer ce voyage"
+    "delete": "Supprimer ce voyage",
+    "login": {
+        "subscribe": "s'inscrire",
+        "login": "se connecter",
+        "unsaved": "Vous devez vous connecter pour enregistrer vos modifications."
+    },
+    "notes": "Notes générales"
 }

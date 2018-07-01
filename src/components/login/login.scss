@@ -1,0 +1,23 @@
+@import "../../style/variables.scss";
+.login {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background: $blue-menu;
+    color: white;
+    border-right: 5px solid #113555;
+    border-left: 6px solid $red-logo;
+    .avatar {
+        width: 60px;
+        height: 60px;
+        margin: 5px 10px 5px 5px;
+        background: white;
+        color: $blue-menu;
+    }
+    button {
+        margin: 5px 0;
+        &.red {
+            color: $red-logo;
+        }
+    }
+}

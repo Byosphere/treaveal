@@ -13,7 +13,8 @@ import Notes from '../../components/notes/Notes.jsx';
 import Toolbox from '../../components/toolbox/Toolbox.jsx';
 import Hotelbox from '../../components/hotelbox/Hotelbox.jsx';
 import Flight from '../../components/flight/Flight.jsx';
-
+import Login from '../../components/login/Login.jsx';
+import T from 'i18n-react';
 
 class Home extends React.Component {
 
@@ -31,6 +32,7 @@ class Home extends React.Component {
                         <span>Dashboard</span>
                     </section>
                     <Header></Header>
+                    <Login></Login>
                     <Sidebar></Sidebar>
                     <Flight></Flight>
                     <Toolbox></Toolbox>
@@ -42,6 +44,7 @@ class Home extends React.Component {
                         <Route exact path='/transports' component={Transports} />
                         <Redirect to="/dashboard" />
                     </Switch>
+                    <div className="app-bar-right"><p>{T.translate('login.unsaved')}</p></div>
                     <Hotelbox></Hotelbox>
                     <Footer></Footer>
                 </div>
