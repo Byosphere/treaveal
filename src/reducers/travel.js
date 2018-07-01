@@ -1,4 +1,4 @@
-import { SET_TRAVEL_INFO, SET_HOTEL, SET_DAY, SET_CURRENT_DAY } from '../Constants';
+import { SET_TRAVEL_INFO, SET_HOTEL, SET_DAY, SET_CURRENT_DAY, DELETE_TRAVEL } from '../Constants';
 
 const initialState = {
     init: false,
@@ -6,7 +6,9 @@ const initialState = {
     title: "",
     location: "",
     daysNum: 1,
-    currentDay: 1
+    currentDay: 1,
+    updatedDate: null,
+    departureDate: null,
 };
 
 export default (state = initialState, action) => {
@@ -19,8 +21,13 @@ export default (state = initialState, action) => {
                 location: action.location || state.location,
                 title: action.title || state.title,
                 daysNum: action.daysNum || state.daysNum,
-                currentDay: action.currentDay || state.currentDay
+                currentDay: action.currentDay || state.currentDay,
+                updatedDate: action.updatedDate || state.updatedDate,
+                departureDate: action.departureDate || state.departureDate
             };
+
+        case DELETE_TRAVEL:
+            return initialState;
 
         default:
             return state;

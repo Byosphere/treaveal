@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Search from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Edit from '@material-ui/icons/Edit';
+import AccessTime from '@material-ui/icons/AccessTime'
 import TravelDialog from '../traveldialog/TravelDialog.jsx';
 import { saveTravelInfo } from '../../actions/travelActions';
-import { getCountryFromCountryCode } from '../../utils/helpers';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+import { getCountryFromCountryCode, getNavigatorLanguage, daysBetween } from '../../utils/helpers';
+import T from 'i18n-react';
 
 class Header extends React.Component {
 
@@ -18,7 +19,9 @@ class Header extends React.Component {
         this.state = {
             open: false,
             title: this.props.title || '',
-            location: getCountryFromCountryCode(this.props.location)
+            location: getCountryFromCountryCode(this.props.location),
+            updatedDate: this.props.updatedDate,
+            departureDate: this.props.departureDate
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -47,29 +50,36 @@ class Header extends React.Component {
         this.handleClose();
     }
 
+    componentWillUpdate(nextProps) {
+        if (nextProps.updatedDate != this.state.updatedDate) {
+            this.setState({
+                updatedDate: nextProps.updatedDate
+            });
+        }
+    }
+
     render() {
+
         return (
             <section className="app-header">
                 <div className="title">
                     <h1>{this.state.location} :
                     <span>{this.state.title}</span>
-                        <Tooltip id="tooltip-new" title="Modify this travel" placement="right">
-                            <IconButton onClick={this.handleClick} color="inherit" aria-label="New">
-                                <Edit />
-                            </IconButton>
-                        </Tooltip>
+                        <IconButton onClick={this.handleClick} color="inherit" aria-label="New">
+                            <Edit />
+                        </IconButton>
                     </h1>
-                    <span>Created on 12/05/2018 by <a href="#">Yohann</a>.</span>
+                    <span>{T.translate("header.updated")} {new Date(this.state.updatedDate).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 </div>
-                <Grid container spacing={8} alignItems="flex-end">
-                    <Grid item>
-                        <Search />
-                    </Grid>
-                    <Grid item>
-                        <TextField id="input-search" label="Search for a trip" />
-                    </Grid>
-                </Grid>
                 <TravelDialog open={this.state.open} onClose={this.handleClose} onSave={this.handleSave} />
+                <Chip
+                    avatar={
+                        <Avatar>
+                            <AccessTime />
+                        </Avatar>
+                    }
+                    label={T.translate('header.leaving-in') + " " + daysBetween(new Date(), new Date(this.state.departureDate)) + " " + T.translate('header.days')}
+                />
             </section>
         );
     }
@@ -78,7 +88,9 @@ class Header extends React.Component {
 function mapStateToProps(state) {
     return {
         title: state.travel.title,
-        location: state.travel.location
+        location: state.travel.location,
+        updatedDate: state.travel.updatedDate,
+        departureDate: state.travel.departureDate
     }
 }
 

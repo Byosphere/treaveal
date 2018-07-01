@@ -1,28 +1,15 @@
-import { SET_TRAVEL_INFO, SET_HOTEL, SET_DAY } from "../Constants";
+import { SET_TRAVEL_INFO, SET_HOTEL, DELETE_TRAVEL } from "../Constants";
 
 
-export function saveTravelInfo(title, location, daysNum, notes) {
+export function saveTravelInfo(title, location, daysNum, notes, departureDate) {
     return {
         type: SET_TRAVEL_INFO,
         notes,
         location,
         daysNum: parseInt(daysNum),
-        title
-    }
-}
-
-export function setDay(num, day) {
-    return {
-        type: SET_DAY,
-        num,
-        day
-    }
-}
-
-export function addDay(day) {
-    return {
-        type: SET_DAY,
-        day
+        title,
+        departureDate,
+        updatedDate: new Date()
     }
 }
 
@@ -34,16 +21,15 @@ export function saveHotel(hotel, dayNum) {
     }
 }
 
-export function saveDay(day) {
-    return {
-        type: SET_DAY,
-        day
-    }
-}
-
 export function setCurrentDay(currentDay) {
     return {
         type: SET_TRAVEL_INFO,
         currentDay
+    }
+}
+
+export function deleteTravel() {
+    return {
+        type: DELETE_TRAVEL
     }
 }

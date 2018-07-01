@@ -1,3 +1,27 @@
 {
-    "overview": "Vue d'ensemble"
+    "app-name": "TREVEAL",
+    "app-subtitle": "dashboard",
+    "header": {
+        "search": "Chercher un voyage",
+        "updated": "Mis à jour le",
+        "leaving-in": "Départ dans",
+        "days": "jours",
+        "edit": "Modifier le voyage"
+    },
+    "overview": "Vue d'ensemble",
+    "spending": "Dépenses",
+    "activities": "Activités",
+    "transports": "Déplacements",
+    "cover": {
+        "subtitle": "Organise un voyage en quelques clics !",
+        "form": {
+            "title": "Titre du voyage",
+            "location": "Pays visité",
+            "departure": "Date de départ",
+            "validate": "Créer la plannification"
+        }
+    },
+    "cancel": "annuler",
+    "save": "enregistrer",
+    "delete": "Supprimer ce voyage"
 }

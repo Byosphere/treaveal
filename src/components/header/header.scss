@@ -6,7 +6,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 100%;
+        margin-bottom: 10px;
 
         h1 {
             margin: 0 0 0 40px;
@@ -25,9 +25,5 @@
             font-size: 0.8rem;
             opacity: 0.8;
         }
-    }
-    &>div {
-        width: auto;
-        margin-right: 40px;
     }
 }

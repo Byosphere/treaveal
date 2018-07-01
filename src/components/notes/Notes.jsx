@@ -11,7 +11,7 @@ class Notes extends React.Component {
         this.state = {
             value: this.props.notes || "",
             disabled: true,
-            savedValue: ""
+            savedValue: this.props.notes
         }
         this.textChange = this.textChange.bind(this);
         this.save = this.save.bind(this);

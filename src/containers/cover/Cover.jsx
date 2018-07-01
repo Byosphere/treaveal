@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, TextField, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { Button, TextField, Select, MenuItem, FormControl, InputLabel, Card } from '@material-ui/core';
 import { COUNTRY_CODES } from '../../Constants';
 import { saveTravelInfo } from '../../actions/travelActions';
+import T from 'i18n-react';
 
 class Cover extends React.Component {
 
@@ -13,7 +14,9 @@ class Cover extends React.Component {
             name: '',
             location: '',
             nameError: false,
-            locationError: false
+            locationError: false,
+            date: '',
+            dateError: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -26,23 +29,30 @@ class Cover extends React.Component {
     handleClick() {
         if (this.state.name === '') {
             this.setState({
-                nameError: "true"
+                nameError: true
             });
         }
 
         if (this.state.location === '') {
             this.setState({
-                locationError: "true"
+                locationError: true
+            });
+        }
+
+        if (this.state.date === '') {
+            this.setState({
+                dateError: true
             });
         }
 
         if (this.state.location && this.state.name) {
             this.setState({
-                nameError: "false",
-                locationError: "false"
+                nameError: false,
+                locationError: false,
+                dateError: false
             });
 
-            this.props.saveTravelInfo(this.state.name, this.state.location);
+            this.props.saveTravelInfo(this.state.name, this.state.location, null, null, this.state.date);
         }
 
     }
@@ -51,40 +61,59 @@ class Cover extends React.Component {
 
         return (
             <section className="cover">
-                <div className="logo">
-                    <h1>TREVEAL</h1>
-                    <span>Dashboard</span>
-                </div>
-                <p>Plan your trip in a few clicks</p>
-                <TextField
-                    id="name"
-                    label="Trip name"
-                    name="name"
-                    className="cover__input"
-                    value={this.state.name}
-                    onChange={this.handleChange}
-                    margin="normal"
-                    error={this.state.nameError}
-                />
-                <FormControl>
-                    <InputLabel htmlFor="location">Trip country</InputLabel>
-                    <Select
-                        value={this.state.location}
-                        onChange={this.handleChange}
+                <Card className="cover-card">
+                    <div className="logo">
+                        <h1>{T.translate('app-name')}</h1>
+                        <span>{T.translate('app-subtitle')}</span>
+                    </div>
+                    <p>{T.translate('cover.subtitle')}</p>
+                    <TextField
+                        id="name"
+                        label={T.translate('cover.form.title')}
+                        name="name"
                         className="cover__input"
-                        inputProps={{
-                            name: 'location',
-                            id: 'location',
-                            error: this.state.locationError
-                        }}>
-                        {COUNTRY_CODES.map((e, i) => (
-                            <MenuItem key={i} value={e.code}>{e.name}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                <Button onClick={this.handleClick} color="primary">
-                    Create the plan
+                        value={this.state.name}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        error={this.state.nameError}
+                        required
+                    />
+                    <FormControl>
+                        <InputLabel error={this.state.locationError} required htmlFor="location">{T.translate('cover.form.location')}</InputLabel>
+                        <Select
+                            value={this.state.location}
+                            onChange={this.handleChange}
+                            className="cover__input"
+                            required
+                            error={this.state.locationError}
+                            inputProps={{
+                                name: 'location',
+                                id: 'location',
+                            }}>
+                            {COUNTRY_CODES.map((e, i) => (
+                                <MenuItem key={i} value={e.code}>{e.name}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <TextField
+                        id="date"
+                        label={T.translate('cover.form.departure')}
+                        name="date"
+                        required
+                        className="cover__input"
+                        value={this.state.date}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        type="date"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        error={this.state.dateError}
+                    />
+                    <Button onClick={this.handleClick} color="primary">
+                        {T.translate('cover.form.validate')}
                 </Button>
+                </Card>
             </section>
         );
     }

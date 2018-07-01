@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ListItem, Avatar, ListItemText, List, ListItemSecondaryAction, IconButton, Chip, Menu, MenuItem, Button, AppBar, Toolbar, Typography } from '@material-ui/core';
+import { ListItem, Avatar, ListItemText, List, ListItemSecondaryAction, IconButton, Chip, Menu, MenuItem, Button, AppBar, Toolbar, Typography, Divider } from '@material-ui/core';
 import ImageIcon from '@material-ui/icons/Image';
 import FaceIcon from '@material-ui/icons/Face';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Delete from '@material-ui/icons/Delete';
 import Timeline from '../../components/timeline/Timeline.jsx';
 import Dashboard from '@material-ui/icons/Dashboard';
 import T from 'i18n-react';
@@ -47,88 +48,93 @@ class MainPage extends React.Component {
             const list = this.state.day.events || [];
             return (
                 <section className="main-page">
-                    <Timeline></Timeline>
                     <div className="app-bar"><Dashboard /><h2>{T.translate("overview")}</h2></div>
-                    <div className="page-people">
-                        <Chip
-                            avatar={
-                                <Avatar>
-                                    <FaceIcon />
-                                </Avatar>
-                            }
-                            onDelete={this.handleDelete}
-                            label="Yohann"
-                        />
-                        <Chip
-                            avatar={
-                                <Avatar>
-                                    <FaceIcon />
-                                </Avatar>
-                            }
-                            onDelete={this.handleDelete}
-                            label="Maxime"
-                        />
-                    </div>
-                    <div className="page-date">
-                        <Chip label={day.date} />
-                    </div>
-                    <header>
-                        <h2>Jour {this.state.currentDay}</h2>
-                        <span>- {day.city} - </span>
-                    </header>
-                    <List>
-                        {list.length === 0 && (
-                            <li className="button-list">
-                                <p>Rien n'a été défini ce jour.</p>
-                                <Button color="primary" >
-                                    Ajouter un événement
+                    <Timeline></Timeline>
+                    <div className="wrapper">
+                        <div className="page-people">
+                            <Chip
+                                avatar={
+                                    <Avatar>
+                                        <FaceIcon />
+                                    </Avatar>
+                                }
+                                onDelete={this.handleDelete}
+                                label="Yohann"
+                            />
+                            <Chip
+                                avatar={
+                                    <Avatar>
+                                        <FaceIcon />
+                                    </Avatar>
+                                }
+                                onDelete={this.handleDelete}
+                                label="Maxime"
+                            />
+                        </div>
+                        <div className="buttons">
+                            <IconButton aria-haspopup="true" className={this.state.currentDay === 1 ? 'disabled icon-button' : 'icon-button'} onClick={this.handleClick} aria-label="delete" disabled={this.state.currentDay === 1}>
+                                <Delete />
+                            </IconButton>
+                        </div>
+                        <header>
+                            <h2>Jour {this.state.currentDay}</h2>
+                            <span>- {day.city} - </span>
+                        </header>
+                        <Divider />
+                        <List>
+                            {list.length === 0 && (
+                                <li className="button-list">
+                                    <p>Rien n'a été défini ce jour.</p>
+                                    <Button color="primary" >
+                                        Ajouter un événement
                             </Button>
-                            </li>
-                        )}
-                        {list.map((e, i) => (
-                            <ListItem key={i}>
-                                <Avatar>
-                                    {{
-                                        'activity': (
-                                            <ImageIcon />
-                                        ),
-                                        'transport': (
-                                            <ImageIcon />
-                                        ),
-                                        'plaintext': (
-                                            <ImageIcon />
-                                        ),
-                                        default: (
-                                            <ImageIcon />
-                                        )
-                                    }[e.type]}
-                                </Avatar>
-                                <ListItemText primary={e.title} secondary={e.text} />
-                                <ListItemSecondaryAction>
-                                    <IconButton aria-haspopup="true" onClick={this.handleClick} aria-label="edit" aria-owns={this.state.anchor ? 'item-main-menu-' + i : null}>
-                                        <MoreVertIcon />
-                                    </IconButton>
-                                    <Menu
-                                        id={"item-main-menu" + 1}
-                                        anchorEl={this.state.anchor}
-                                        open={Boolean(this.state.anchor)}
-                                        onClose={this.handleClose}>
-                                        <MenuItem onClick={this.handleClose}>Edit</MenuItem>
-                                        <MenuItem onClick={this.handleClose}>Move Up</MenuItem>
-                                        <MenuItem onClick={this.handleClose}>Move Down</MenuItem>
-                                        <MenuItem onClick={this.handleClose}>Delete</MenuItem>
-                                    </Menu>
-                                </ListItemSecondaryAction>
-                            </ListItem>
-                        ))}
-                        {list.length > 0 && (
-                            <li className="button-list">
-                                <Button color="primary">
-                                    Ajouter un événement
+                                </li>
+                            )}
+                            {list.map((e, i) => (
+                                <ListItem key={i}>
+                                    <Avatar>
+                                        {{
+                                            'activity': (
+                                                <ImageIcon />
+                                            ),
+                                            'transport': (
+                                                <ImageIcon />
+                                            ),
+                                            'plaintext': (
+                                                <ImageIcon />
+                                            ),
+                                            default: (
+                                                <ImageIcon />
+                                            )
+                                        }[e.type]}
+                                    </Avatar>
+                                    <ListItemText primary={e.title} secondary={e.text} />
+                                    <ListItemSecondaryAction>
+                                        <IconButton aria-haspopup="true" onClick={this.handleClick} aria-label="edit" aria-owns={this.state.anchor ? 'item-main-menu-' + i : null}>
+                                            <MoreVertIcon />
+                                        </IconButton>
+                                        <Menu
+                                            id={"item-main-menu" + 1}
+                                            anchorEl={this.state.anchor}
+                                            open={Boolean(this.state.anchor)}
+                                            onClose={this.handleClose}>
+                                            <MenuItem onClick={this.handleClose}>Edit</MenuItem>
+                                            <MenuItem onClick={this.handleClose}>Move Up</MenuItem>
+                                            <MenuItem onClick={this.handleClose}>Move Down</MenuItem>
+                                            <MenuItem onClick={this.handleClose}>Delete</MenuItem>
+                                        </Menu>
+                                    </ListItemSecondaryAction>
+                                </ListItem>
+                            ))}
+                            {list.length > 0 && (
+                                <li className="button-list">
+                                    <Button color="primary">
+                                        Ajouter un événement
                         </Button>
-                            </li>
-                        )}
-                    </List>
+                                </li>
+                            )}
+                        </List>
+                    </div>
                 </section >
             );
         } else {

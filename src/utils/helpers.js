@@ -9,12 +9,24 @@ export function getCountryFromCountryCode(code) {
 }
 
 
-export function getNavigatorLanguage() {
+export function getNavigatorLanguage(raw) {
     let language = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage;
-    if (language.length > 2) {
+    if (language.length > 2 && !raw) {
         language = language.split("-")[0];
         language = language.split("_")[0];
     }
 
     return language;
+}
+
+export function daysBetween(date1, date2) {
+
+    let ONE_DAY = 1000 * 60 * 60 * 24;
+    let date1_ms = date1.getTime();
+    let date2_ms = date2.getTime();
+
+    let difference_ms = Math.abs(date1_ms - date2_ms);
+
+    return Math.floor(difference_ms / ONE_DAY);
+
 }

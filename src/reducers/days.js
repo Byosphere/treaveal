@@ -2,7 +2,7 @@ import { SET_HOTEL } from '../Constants';
 
 const initialState = {
     days: [
-        { id: 0 },
+        {},
         { id: 1 }
     ]
 };

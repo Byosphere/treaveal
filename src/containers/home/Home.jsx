@@ -1,9 +1,11 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../../components/header/Header.jsx';
 import MainPage from '../mainpage/MainPage.jsx';
 import Spending from '../spending/Spending.jsx';
+import Activities from '../activities/Activities.jsx';
+import Transports from '../transports/Transports.jsx';
 import Cover from '../cover/Cover.jsx';
 import Footer from '../footer/Footer.jsx';
 import Sidebar from '../../components/sidebar/Sidebar.jsx';
@@ -36,6 +38,8 @@ class Home extends React.Component {
                     <Switch>
                         <Route exact path='/dashboard' component={MainPage} />
                         <Route exact path='/spending' component={Spending} />
+                        <Route exact path='/activities' component={Activities} />
+                        <Route exact path='/transports' component={Transports} />
                         <Redirect to="/dashboard" />
                     </Switch>
                     <Hotelbox></Hotelbox>
@@ -57,4 +61,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {})(Home);
+export default withRouter(connect(mapStateToProps, {})(Home));
