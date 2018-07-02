@@ -52,7 +52,7 @@ class Cover extends React.Component {
                 dateError: false
             });
 
-            this.props.saveTravelInfo(this.state.name, this.state.location, null, null, this.state.date);
+            this.props.saveTravelInfo(this.state.name, this.state.location, null, this.state.date);
         }
 
     }
@@ -112,7 +112,7 @@ class Cover extends React.Component {
                     />
                     <Button onClick={this.handleClick} color="primary">
                         {T.translate('cover.form.validate')}
-                </Button>
+                    </Button>
                 </Card>
             </section>
         );

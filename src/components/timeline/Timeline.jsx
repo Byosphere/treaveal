@@ -4,7 +4,7 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import { setCurrentDay } from '../../actions/travelActions';
+import { setCurrentDay } from '../../actions/dayActions';
 
 class Timeline extends React.Component {
 
@@ -12,8 +12,8 @@ class Timeline extends React.Component {
         super(props);
 
         this.state = {
-            currentDay: this.props.currentDay || 1,
-            daysNum: this.props.daysNum || 1,
+            currentDay: this.props.currentDay,
+            nbDays: this.props.nbDays,
         }
     }
 
@@ -34,14 +34,10 @@ class Timeline extends React.Component {
     }
 
     componentWillUpdate(nextProps) {
-        if (nextProps.daysNum !== this.props.daysNum) {
-            if (this.state.currentDay >= nextProps.daysNum) {
-                this.setState({
-                    currentDay: this.state.daysNum
-                });
-            }
+        if (nextProps.nbDays !== this.state.nbDays || nextProps.currentDay !== this.state.currentDay) {
             this.setState({
-                daysNum: nextProps.daysNum
+                currentDay: nextProps.currentDay,
+                nbDays: nextProps.nbDays
             });
         }
     }
@@ -51,17 +47,17 @@ class Timeline extends React.Component {
             <section className="timeline">
                 <MobileStepper
                     classes={{ dot: 'dot', root: 'stepper', dotActive: 'active' }}
-                    steps={this.state.daysNum}
+                    steps={this.state.nbDays}
                     position="static"
-                    activeStep={this.state.currentDay - 1}
+                    activeStep={this.state.currentDay}
                     nextButton={
-                        <Button size="small" onClick={this.handleNext.bind(this)} disabled={this.state.currentDay === this.state.daysNum}>
+                        <Button size="small" onClick={this.handleNext.bind(this)} disabled={this.state.currentDay === (this.state.nbDays - 1)}>
                             Next
                             <KeyboardArrowRight />
                         </Button>
                     }
                     backButton={
-                        <Button size="small" onClick={this.handleBack.bind(this)} disabled={this.state.currentDay === 1}>
+                        <Button size="small" onClick={this.handleBack.bind(this)} disabled={this.state.currentDay === 0}>
                             <KeyboardArrowLeft />
                             Back
                         </Button>
@@ -74,8 +70,8 @@ class Timeline extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        daysNum: state.travel.daysNum,
-        currentDay: state.travel.currentDay,
+        nbDays: state.days.nbDays,
+        currentDay: state.days.currentDay,
     }
 }
 

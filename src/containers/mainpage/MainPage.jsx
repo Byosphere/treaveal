@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ListItem, Avatar, ListItemText, List, ListItemSecondaryAction, IconButton, Chip, Menu, MenuItem, Button, AppBar, Toolbar, Typography, Divider } from '@material-ui/core';
+import { ListItem, Avatar, ListItemText, List, ListItemSecondaryAction, IconButton, Chip, Menu, MenuItem, Button, Divider } from '@material-ui/core';
 import ImageIcon from '@material-ui/icons/Image';
 import FaceIcon from '@material-ui/icons/Face';
+import AddIcon from '@material-ui/icons/Add';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Delete from '@material-ui/icons/Delete';
 import Timeline from '../../components/timeline/Timeline.jsx';
 import Dashboard from '@material-ui/icons/Dashboard';
+import DayDialog from '../../components/dialog/daydialog/DayDialog.jsx'
+import { setDay } from '../../actions/dayActions';
 import T from 'i18n-react';
 
 class MainPage extends React.Component {
@@ -17,10 +20,14 @@ class MainPage extends React.Component {
         this.state = {
             anchor: null,
             day: this.props.days[this.props.currentDay],
-            currentDay: this.props.currentDay
+            currentDay: this.props.currentDay,
+            open: false
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.openDayDialog = this.openDayDialog.bind(this);
+        this.closeDayDialog = this.closeDayDialog.bind(this);
+        this.saveDayDialog = this.saveDayDialog.bind(this);
     }
 
     handleClick(event) {
@@ -30,6 +37,26 @@ class MainPage extends React.Component {
     handleClose() {
         this.setState({ anchor: null });
     };
+
+    openDayDialog() {
+        this.setState({
+            open: true,
+        });
+    }
+
+    saveDayDialog(day) {
+        this.props.setDay(day, true);
+        this.setState({
+            open: false,
+            day
+        });
+    }
+
+    closeDayDialog() {
+        this.setState({
+            open: false,
+        });
+    }
 
     componentWillUpdate(nextProps) {
 
@@ -72,15 +99,15 @@ class MainPage extends React.Component {
                             />
                         </div>
                         <div className="buttons">
-                            <IconButton aria-haspopup="true" className={this.state.currentDay === 1 ? 'disabled icon-button' : 'icon-button'} onClick={this.handleClick} aria-label="delete" disabled={this.state.currentDay === 1}>
+                            <IconButton aria-haspopup="true" className="icon-button" onClick={this.handleClick} aria-label="delete">
                                 <Delete />
                             </IconButton>
                         </div>
+                        <Divider />
                         <header>
-                            <h2>Jour {this.state.currentDay}</h2>
+                            <h2>{T.translate('day')} {this.state.currentDay + 1}</h2>
                             <span>- {day.city} - </span>
                         </header>
-                        <Divider />
                         <List>
                             {list.length === 0 && (
                                 <li className="button-list">
@@ -140,18 +167,25 @@ class MainPage extends React.Component {
         } else {
             return (
                 <section className="main-page unset">
-                    <Timeline></Timeline>
                     <div className="app-bar"><Dashboard /><h2>Vue d'ensemble</h2></div>
-                </section >
+                    <Timeline></Timeline>
+                    <div className="wrapper empty">
+                        <span className="button-label">Add a day</span>
+                        <Button onClick={this.openDayDialog} variant="fab" color="primary" aria-label="add">
+                            <AddIcon />
+                        </Button>
+                        <DayDialog open={this.state.open} onClose={this.closeDayDialog} onSave={this.saveDayDialog} />
+                    </div>
+                </section>
             )
         }
     }
 }
 function mapStateToProps(state) {
     return {
-        currentDay: state.travel.currentDay,
-        days: state.days.days
+        currentDay: state.days.currentDay,
+        days: state.days.list
     }
 }
 
-export default connect(mapStateToProps, {})(MainPage);
+export default connect(mapStateToProps, { setDay })(MainPage);

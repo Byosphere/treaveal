@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Edit from '@material-ui/icons/Edit';
 import AccessTime from '@material-ui/icons/AccessTime'
-import TravelDialog from '../traveldialog/TravelDialog.jsx';
+import TravelDialog from '../dialog/traveldialog/TravelDialog.jsx';
 import { saveTravelInfo } from '../../actions/travelActions';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';

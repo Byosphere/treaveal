@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Card, CardMedia, Typography, CardContent, Button } from '@material-ui/core';
 import { saveHotel } from '../../actions/travelActions';
 import AddIcon from '@material-ui/icons/Add';
-import HotelDialog from '../hoteldialog/HotelDialog.jsx';
+import HotelDialog from '../dialog/hoteldialog/HotelDialog.jsx';
 
 class Hotelbox extends React.Component {
 
@@ -104,7 +104,7 @@ class Hotelbox extends React.Component {
 function mapStateToProps(state) {
     return {
         currentDay: state.travel.currentDay,
-        days: state.days.days
+        days: state.days
     }
 }
 

@@ -29,5 +29,7 @@
         "login": "se connecter",
         "unsaved": "Vous devez vous connecter pour enregistrer vos modifications."
     },
-    "notes": "Notes générales"
+    "notes": "Notes générales",
+    "create-day": "Ajouter un jour",
+    "day": "jour"
 }

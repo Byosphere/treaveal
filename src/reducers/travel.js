@@ -5,8 +5,6 @@ const initialState = {
     notes: "",
     title: "",
     location: "",
-    daysNum: 1,
-    currentDay: 1,
     updatedDate: null,
     departureDate: null,
 };
@@ -20,8 +18,6 @@ export default (state = initialState, action) => {
                 notes: action.notes || state.notes,
                 location: action.location || state.location,
                 title: action.title || state.title,
-                daysNum: action.daysNum || state.daysNum,
-                currentDay: action.currentDay || state.currentDay,
                 updatedDate: action.updatedDate || state.updatedDate,
                 departureDate: action.departureDate || state.departureDate
             };

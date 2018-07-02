@@ -16,6 +16,17 @@
                 }
             }
         }
+        &.empty {
+            height: calc(100% - 100px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .button-label {
+                margin-bottom: 10px;
+            }
+        }
     }
     .page-people {
         position: absolute;
