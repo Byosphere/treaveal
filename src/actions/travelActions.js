@@ -12,14 +12,6 @@ export function saveTravelInfo(title, location, notes, departureDate) {
     }
 }
 
-export function saveHotel(hotel, dayNum) {
-    return {
-        type: SET_HOTEL,
-        hotel,
-        dayNum
-    }
-}
-
 export function deleteTravel() {
     return {
         type: DELETE_TRAVEL

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControlLabel, Checkbox } from '@material-ui/core';
+import T from 'i18n-react';
 
 class HotelDialog extends React.Component {
 
@@ -8,10 +9,11 @@ class HotelDialog extends React.Component {
 
         this.state = {
             name: this.props.hotel.name,
-            checkIn: this.props.hotel.checkIn,
+            checkIn: this.props.hotel.checkIn || this.props.date,
             checkOut: this.props.hotel.checkOut,
             phone: this.props.hotel.phone,
             address: this.props.hotel.address,
+            autocomplete: false
         }
 
         this.handleClose = this.handleClose.bind(this);
@@ -24,7 +26,7 @@ class HotelDialog extends React.Component {
     }
 
     handleSave() {
-        this.props.onSave(this.state);
+        this.props.onSave(this.state, this.state.autocomplete);
     }
 
     handleChange(name, event) {
@@ -37,11 +39,11 @@ class HotelDialog extends React.Component {
 
         return (
             <Dialog open={this.props.open} onClose={this.handleClose} aria-labelledby="hotel-dialog" className="hotel-dialog dialog" >
-                <DialogTitle id="travel-dialog-title">Create a Hotel Card</DialogTitle>
+                <DialogTitle id="travel-dialog-title">{T.translate('hotel.create')}</DialogTitle>
                 <DialogContent>
                     <TextField
                         id="hotel-name"
-                        label="Hotel name"
+                        label={T.translate('hotel.name')}
                         placeholder={this.state.name}
                         margin="normal"
                         fullWidth
@@ -49,21 +51,21 @@ class HotelDialog extends React.Component {
                     />
                     <TextField
                         id="hotel-checkin"
-                        defaultValue={this.state.checkIn}
-                        label="Hotel Check in"
+                        value={this.state.checkIn}
+                        label={T.translate('hotel.check-in')}
                         margin="normal"
                         type="date"
                         InputLabelProps={{
                             shrink: true,
                         }}
                         fullWidth
-                        onChange={(evt) => this.handleChange('checkIn', evt)}
+                        disabled={true}
                     />
                     <TextField
                         id="hotel-checkout"
                         defaultValue={this.state.checkOut}
                         margin="normal"
-                        label="Hotel Check out"
+                        label={T.translate('hotel.check-out')}
                         type="date"
                         fullWidth
                         InputLabelProps={{
@@ -73,7 +75,7 @@ class HotelDialog extends React.Component {
                     />
                     <TextField
                         id="hotel-name"
-                        label="Hotel phone number"
+                        label={T.translate('hotel.phone')}
                         placeholder={this.state.phone}
                         margin="normal"
                         fullWidth
@@ -81,19 +83,32 @@ class HotelDialog extends React.Component {
                     />
                     <TextField
                         id="hotel-name"
-                        label="Hotel address"
+                        label={T.translate('hotel.address')}
                         placeholder={this.state.address}
                         margin="normal"
                         fullWidth
                         onChange={(evt) => this.handleChange('address', evt)}
                     />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={this.state.autocomplete}
+                                onChange={() => this.setState({ autocomplete: !this.state.autocomplete })}
+                                color="primary"
+                            />
+                        }
+                        label={T.translate('hotel.autocomplete')}
+                    />
                 </DialogContent>
                 <DialogActions>
+                    <Button onClick={this.handleClose} color="secondary">
+                        {T.translate('hotel.delete')}
+                    </Button>
                     <Button onClick={this.handleClose}>
-                        Cancel
-                </Button>
+                        {T.translate('cancel')}
+                    </Button>
                     <Button onClick={this.handleSave} color="primary">
-                        Save
+                        {T.translate('save')}
                     </Button>
                 </DialogActions>
             </Dialog>

@@ -51,7 +51,7 @@ class Timeline extends React.Component {
                     position="static"
                     activeStep={this.state.currentDay}
                     nextButton={
-                        <Button size="small" onClick={this.handleNext.bind(this)} disabled={this.state.currentDay === (this.state.nbDays - 1)}>
+                        <Button size="small" onClick={this.handleNext.bind(this)} disabled={this.state.currentDay === (this.state.nbDays -1)}>
                             Next
                             <KeyboardArrowRight />
                         </Button>

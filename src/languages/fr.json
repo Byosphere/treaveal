@@ -34,5 +34,15 @@
     "notes": "Notes générales",
     "create-day": "Ajouter un jour",
     "day": "jour",
-    "confirm-delete-day": "Etes-vous sur de vouloir supprimer ce jour ? (Les données seront perdues)"
+    "confirm-delete-day": "Etes-vous sur de vouloir supprimer ce jour ? (Les données seront perdues)",
+    "hotel": {
+        "create": "Ajouter un hotel",
+        "name": "Nom de l'hotel",
+        "check-in": "Date d'arrivée",
+        "check-out": "Date de départ",
+        "phone": "Numéro de téléphone",
+        "address": "Adresse",
+        "autocomplete": "Remplir dynamiquement les jours à partir des dates renseignées",
+        "delete": "Supprimer l'hotel"
+    }
 }

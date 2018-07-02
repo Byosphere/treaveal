@@ -36,7 +36,7 @@ class Toolbox extends React.Component {
     }
 
     saveDayDialog(day) {
-        this.props.setDay(day, true);
+        this.props.setDay(day);
         this.setState({
             dayDialogOpen: false
         });

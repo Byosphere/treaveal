@@ -11,13 +11,16 @@ export default (state = initialState, action) => {
     switch (action.type) {
 
         case SET_DAY:
-            if (action.newDay) {
-                action.day.id = newstate.list.length;
+            if (!action.dayNum) {
+                if (!action.day.date) {
+                    let lastDate = new Date(newstate.list[newstate.nbDays - 1].date)
+                    action.day.date = lastDate.setDate(lastDate.getDate() + 1);
+                }
                 newstate.list.push(action.day);
+                newstate.currentDay = newstate.nbDays;
                 newstate.nbDays++;
-                newstate.currentDay = action.day.id;
             } else {
-                newstate.list[action.day.id] = action.day;
+                newstate.list[action.dayNum] = action.day;
             }
             return newstate;
 
@@ -32,11 +35,8 @@ export default (state = initialState, action) => {
             return newstate;
 
         case SET_HOTEL:
-            if (!state.days[action.dayNum]) {
-                state.days[action.dayNum] = { id: action.dayNum }
-            }
-            state.days[action.dayNum].hotel = action.hotel;
-            return state;
+            newstate.list[action.dayNum].hotel = action.hotel;
+            return newstate;
 
         default:
             return state;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card, CardMedia, Typography, CardContent, Button } from '@material-ui/core';
-import { saveHotel } from '../../actions/travelActions';
+import { setHotel } from '../../actions/dayActions';
 import AddIcon from '@material-ui/icons/Add';
 import HotelDialog from '../dialog/hoteldialog/HotelDialog.jsx';
 
@@ -40,7 +40,7 @@ class Hotelbox extends React.Component {
     }
 
     handleSave(hotel) {
-        this.props.saveHotel(hotel, this.props.currentDay);
+        this.props.setHotel(hotel, this.props.currentDay);
         this.setState({
             exists: true,
             hotel: hotel
@@ -93,7 +93,7 @@ class Hotelbox extends React.Component {
                         <Button onClick={this.handleClick} variant="fab" color="primary" aria-label="add" >
                             <AddIcon />
                         </Button>
-                        <HotelDialog hotel={this.state.hotel} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave} ></HotelDialog>
+                        <HotelDialog date={this.props.days[this.props.currentDay].date} hotel={this.state.hotel} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave} ></HotelDialog>
                     </Card>
                 </section>
             );
@@ -103,9 +103,9 @@ class Hotelbox extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        currentDay: state.travel.currentDay,
-        days: state.days
+        currentDay: state.days.currentDay,
+        days: state.days.list
     }
 }
 
-export default connect(mapStateToProps, { saveHotel })(Hotelbox);
+export default connect(mapStateToProps, { setHotel })(Hotelbox);

@@ -2,16 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ListItem, Avatar, ListItemText, List, ListItemSecondaryAction, IconButton, Chip, Menu, MenuItem, Button, Divider } from '@material-ui/core';
 import ImageIcon from '@material-ui/icons/Image';
-import FaceIcon from '@material-ui/icons/Face';
 import AddIcon from '@material-ui/icons/Add';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Delete from '@material-ui/icons/Delete';
+import AccessTime from '@material-ui/icons/AccessTime';
 import Timeline from '../../components/timeline/Timeline.jsx';
 import Dashboard from '@material-ui/icons/Dashboard';
 import DayDialog from '../../components/dialog/daydialog/DayDialog.jsx';
 import DeleteDayDialog from '../../components/dialog/deleteDayDialog/DeleteDayDialog.jsx';
 import { setDay, deleteDay } from '../../actions/dayActions';
 import T from 'i18n-react';
+import { getNavigatorLanguage } from '../../utils/helpers';
 
 class MainPage extends React.Component {
 
@@ -49,7 +50,8 @@ class MainPage extends React.Component {
     }
 
     saveDayDialog(day) {
-        this.props.setDay(day, true);
+        day.date = this.props.arrival;
+        this.props.setDay(day);
         this.setState({
             open: false,
             day
@@ -68,8 +70,11 @@ class MainPage extends React.Component {
         })
     }
 
-    deleteDay(dayId) {
+    deleteDay() {
         this.props.deleteDay(this.state.currentDay);
+        this.setState({
+            deleteDayDialogOpen: false
+        });
     }
 
     componentWillUpdate(nextProps) {
@@ -96,24 +101,14 @@ class MainPage extends React.Component {
                             <Chip
                                 avatar={
                                     <Avatar>
-                                        <FaceIcon />
+                                        <AccessTime />
                                     </Avatar>
                                 }
-                                onDelete={this.handleDelete}
-                                label="Yohann"
-                            />
-                            <Chip
-                                avatar={
-                                    <Avatar>
-                                        <FaceIcon />
-                                    </Avatar>
-                                }
-                                onDelete={this.handleDelete}
-                                label="Maxime"
+                                label={new Date(this.state.day.date).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                             />
                         </div>
                         <div className="buttons">
-                            <IconButton aria-haspopup="true" className="icon-button" onClick={this.openDeleteDayDialog} aria-label="delete">
+                            <IconButton aria-haspopup="true" className={this.props.days.length === 1 ? "icon-button disabled" : "icon-button"} onClick={this.openDeleteDayDialog} aria-label="delete" disabled={this.props.days.length === 1}>
                                 <Delete />
                             </IconButton>
                             <DeleteDayDialog day-id={this.state.currentDay} open={this.state.deleteDayDialogOpen} onClose={() => { this.setState({ deleteDayDialogOpen: false }) }} onDelete={this.deleteDay} />
@@ -199,7 +194,8 @@ class MainPage extends React.Component {
 function mapStateToProps(state) {
     return {
         currentDay: state.days.currentDay,
-        days: state.days.list
+        days: state.days.list,
+        arrival: state.travel.departureDate
     }
 }
 
