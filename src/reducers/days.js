@@ -1,4 +1,4 @@
-import { SET_HOTEL, SET_DAY, SET_CURRENT_DAY } from '../Constants';
+import { SET_HOTEL, SET_DAY, SET_CURRENT_DAY, DELETE_DAY } from '../Constants';
 
 const initialState = {
     nbDays: 0,
@@ -19,6 +19,12 @@ export default (state = initialState, action) => {
             } else {
                 newstate.list[action.day.id] = action.day;
             }
+            return newstate;
+
+        case DELETE_DAY:
+            newstate.list.splice(newstate.dayId, 1);
+            newstate.nbDays--;
+            newstate.currentDay = 0;
             return newstate;
 
         case SET_CURRENT_DAY:

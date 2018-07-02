@@ -8,8 +8,9 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Delete from '@material-ui/icons/Delete';
 import Timeline from '../../components/timeline/Timeline.jsx';
 import Dashboard from '@material-ui/icons/Dashboard';
-import DayDialog from '../../components/dialog/daydialog/DayDialog.jsx'
-import { setDay } from '../../actions/dayActions';
+import DayDialog from '../../components/dialog/daydialog/DayDialog.jsx';
+import DeleteDayDialog from '../../components/dialog/deleteDayDialog/DeleteDayDialog.jsx';
+import { setDay, deleteDay } from '../../actions/dayActions';
 import T from 'i18n-react';
 
 class MainPage extends React.Component {
@@ -21,13 +22,16 @@ class MainPage extends React.Component {
             anchor: null,
             day: this.props.days[this.props.currentDay],
             currentDay: this.props.currentDay,
-            open: false
+            open: false,
+            deleteDayDialogOpen: false
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.openDayDialog = this.openDayDialog.bind(this);
         this.closeDayDialog = this.closeDayDialog.bind(this);
         this.saveDayDialog = this.saveDayDialog.bind(this);
+        this.deleteDay = this.deleteDay.bind(this);
+        this.openDeleteDayDialog = this.openDeleteDayDialog.bind(this);
     }
 
     handleClick(event) {
@@ -58,9 +62,19 @@ class MainPage extends React.Component {
         });
     }
 
+    openDeleteDayDialog() {
+        this.setState({
+            deleteDayDialogOpen: true
+        })
+    }
+
+    deleteDay(dayId) {
+        this.props.deleteDay(this.state.currentDay);
+    }
+
     componentWillUpdate(nextProps) {
 
-        if (nextProps.currentDay !== this.state.currentDay) {
+        if (nextProps.currentDay !== this.state.currentDay || nextProps.days !== this.props.days) {
             this.setState({
                 day: nextProps.days[nextProps.currentDay],
                 currentDay: nextProps.currentDay
@@ -99,9 +113,10 @@ class MainPage extends React.Component {
                             />
                         </div>
                         <div className="buttons">
-                            <IconButton aria-haspopup="true" className="icon-button" onClick={this.handleClick} aria-label="delete">
+                            <IconButton aria-haspopup="true" className="icon-button" onClick={this.openDeleteDayDialog} aria-label="delete">
                                 <Delete />
                             </IconButton>
+                            <DeleteDayDialog day-id={this.state.currentDay} open={this.state.deleteDayDialogOpen} onClose={() => { this.setState({ deleteDayDialogOpen: false }) }} onDelete={this.deleteDay} />
                         </div>
                         <Divider />
                         <header>
@@ -188,4 +203,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { setDay })(MainPage);
+export default connect(mapStateToProps, { setDay, deleteDay })(MainPage);

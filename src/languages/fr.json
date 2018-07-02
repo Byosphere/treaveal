@@ -22,8 +22,10 @@
         }
     },
     "cancel": "annuler",
+    "validate": "valider",
     "save": "enregistrer",
-    "delete": "Supprimer ce voyage",
+    "delete": "supprimer",
+    "delete-travel": "Supprimer ce voyage",
     "login": {
         "subscribe": "s'inscrire",
         "login": "se connecter",
@@ -31,5 +33,6 @@
     },
     "notes": "Notes générales",
     "create-day": "Ajouter un jour",
-    "day": "jour"
+    "day": "jour",
+    "confirm-delete-day": "Etes-vous sur de vouloir supprimer ce jour ? (Les données seront perdues)"
 }

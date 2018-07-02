@@ -8,7 +8,7 @@ class DayDialog extends React.Component {
 		super(props);
 
 		this.state = {
-
+			name: ''
 		}
 
 		this.handleClose = this.handleClose.bind(this);
@@ -17,11 +17,17 @@ class DayDialog extends React.Component {
 	}
 
 	handleClose() {
+		this.setState({
+			name: ''
+		});
 		this.props.onClose();
 	}
 
 	handleSave() {
-		this.props.onSave(this.state);
+		this.props.onSave(Object.assign({}, this.state));
+		this.setState({
+			name: ''
+		});
 	}
 
 	handleChange(name, event) {

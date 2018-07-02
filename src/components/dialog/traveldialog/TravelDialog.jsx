@@ -72,7 +72,7 @@ class TravelDialog extends React.Component {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handledeleteTravel} color="secondary">
-                        {T.translate('delete')}
+                        {T.translate('delete-travel')}
                     </Button>
                     <Button onClick={this.handleClose}>
                         {T.translate('cancel')}
