@@ -9,19 +9,14 @@ class Hotelbox extends React.Component {
 
     constructor(props) {
         super(props);
-        if (this.props.days[this.props.currentDay] && this.props.days[this.props.currentDay].hotel) {
-            this.state = {
-                currentDay: this.props.currentDay,
-                exists: true,
-                hotel: this.props.days[this.props.currentDay].hotel
-            }
-        } else {
-            this.state = {
-                currentDay: this.props.currentDay,
-                open: false,
-                hotel: {}
-            };
+
+        this.state = {
+            currentDay: this.props.currentDay,
+            day: this.props.days[this.props.currentDay],
+            hotel: this.props.days[this.props.currentDay].hotel || null,
+            open: false,
         }
+
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSave = this.handleSave.bind(this);
@@ -49,26 +44,17 @@ class Hotelbox extends React.Component {
     }
 
     componentWillUpdate(nextProps) {
-        if (nextProps.currentDay !== this.state.currentDay) {
-            if (this.props.days[nextProps.currentDay] && this.props.days[nextProps.currentDay].hotel) {
-                this.setState({
-                    currentDay: nextProps.currentDay,
-                    exists: true,
-                    hotel: this.props.days[nextProps.currentDay].hotel
-                });
-            } else {
-                this.setState({
-                    currentDay: nextProps.currentDay,
-                    open: false,
-                    hotel: {},
-                    exists: false,
-                });
-            }
+        if (nextProps.currentDay !== this.props.currentDay || nextProps.days !== this.props.days) {
+            this.setState({
+                currentDay: nextProps.currentDay,
+                day: nextProps.days[nextProps.currentDay],
+                open: false,
+            });
         }
     }
 
     render() {
-        if (this.state.exists) {
+        if (this.state.day.hotel) {
             return (
                 <section className="hotel-details">
                     <Card raised={true} classes={{ root: "card" }}>
@@ -93,7 +79,7 @@ class Hotelbox extends React.Component {
                         <Button onClick={this.handleClick} variant="fab" color="primary" aria-label="add" >
                             <AddIcon />
                         </Button>
-                        <HotelDialog date={this.props.days[this.props.currentDay].date} hotel={this.state.hotel} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave} ></HotelDialog>
+                        <HotelDialog hotel={this.state.hotel} date={this.state.day.date} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave}></HotelDialog>
                     </Card>
                 </section>
             );

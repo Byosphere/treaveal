@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, TextField, Select, MenuItem, FormControl, InputLabel, Card } from '@material-ui/core';
 import { COUNTRY_CODES } from '../../Constants';
 import { saveTravelInfo } from '../../actions/travelActions';
+import { setDay } from '../../actions/dayActions';
 import T from 'i18n-react';
 
 class Cover extends React.Component {
@@ -53,8 +54,8 @@ class Cover extends React.Component {
             });
 
             this.props.saveTravelInfo(this.state.name, this.state.location, null, this.state.date);
+            this.props.setDay({ name: this.state.name, date: this.state.date });
         }
-
     }
 
     render() {
@@ -119,4 +120,4 @@ class Cover extends React.Component {
     }
 }
 
-export default connect(null, { saveTravelInfo })(Cover);
+export default connect(null, { saveTravelInfo, setDay })(Cover);

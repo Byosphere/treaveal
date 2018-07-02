@@ -89,106 +89,89 @@ class MainPage extends React.Component {
 
     render() {
         const day = this.state.day;
-
-        if (day) {
-            const list = this.state.day.events || [];
-            return (
-                <section className="main-page">
-                    <div className="app-bar"><Dashboard /><h2>{T.translate("overview")}</h2></div>
-                    <Timeline></Timeline>
-                    <div className="wrapper">
-                        <div className="page-people">
-                            <Chip
-                                avatar={
-                                    <Avatar>
-                                        <AccessTime />
-                                    </Avatar>
-                                }
-                                label={new Date(this.state.day.date).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                            />
-                        </div>
-                        <div className="buttons">
-                            <IconButton aria-haspopup="true" className={this.props.days.length === 1 ? "icon-button disabled" : "icon-button"} onClick={this.openDeleteDayDialog} aria-label="delete" disabled={this.props.days.length === 1}>
-                                <Delete />
-                            </IconButton>
-                            <DeleteDayDialog day-id={this.state.currentDay} open={this.state.deleteDayDialogOpen} onClose={() => { this.setState({ deleteDayDialogOpen: false }) }} onDelete={this.deleteDay} />
-                        </div>
-                        <Divider />
-                        <header>
-                            <h2>{T.translate('day')} {this.state.currentDay + 1}</h2>
-                            <span>- {day.city} - </span>
-                        </header>
-                        <List>
-                            {list.length === 0 && (
-                                <li className="button-list">
-                                    <p>Rien n'a été défini ce jour.</p>
-                                    <Button color="primary" >
-                                        Ajouter un événement
+        const list = this.state.day.events || [];
+        return (
+            <section className="main-page">
+                <div className="app-bar"><Dashboard /><h2>{T.translate("overview")}</h2></div>
+                <Timeline></Timeline>
+                <div className="wrapper">
+                    <div className="page-people">
+                        <Chip
+                            avatar={
+                                <Avatar>
+                                    <AccessTime />
+                                </Avatar>
+                            }
+                            label={new Date(this.state.day.date).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                        />
+                    </div>
+                    <div className="buttons">
+                        <IconButton aria-haspopup="true" className={this.props.days.length === 1 ? "icon-button disabled" : "icon-button"} onClick={this.openDeleteDayDialog} aria-label="delete" disabled={this.props.days.length === 1}>
+                            <Delete />
+                        </IconButton>
+                        <DeleteDayDialog day-id={this.state.currentDay} open={this.state.deleteDayDialogOpen} onClose={() => { this.setState({ deleteDayDialogOpen: false }) }} onDelete={this.deleteDay} />
+                    </div>
+                    <Divider />
+                    <header>
+                        <h2>{T.translate('day')} {this.state.currentDay + 1}</h2>
+                        <span>- {day.city} - </span>
+                    </header>
+                    <List>
+                        {list.length === 0 && (
+                            <li className="button-list">
+                                <p>Rien n'a été défini ce jour.</p>
+                                <Button color="primary" >
+                                    Ajouter un événement
                             </Button>
-                                </li>
-                            )}
-                            {list.map((e, i) => (
-                                <ListItem key={i}>
-                                    <Avatar>
-                                        {{
-                                            'activity': (
-                                                <ImageIcon />
-                                            ),
-                                            'transport': (
-                                                <ImageIcon />
-                                            ),
-                                            'plaintext': (
-                                                <ImageIcon />
-                                            ),
-                                            default: (
-                                                <ImageIcon />
-                                            )
-                                        }[e.type]}
-                                    </Avatar>
-                                    <ListItemText primary={e.title} secondary={e.text} />
-                                    <ListItemSecondaryAction>
-                                        <IconButton aria-haspopup="true" onClick={this.handleClick} aria-label="edit" aria-owns={this.state.anchor ? 'item-main-menu-' + i : null}>
-                                            <MoreVertIcon />
-                                        </IconButton>
-                                        <Menu
-                                            id={"item-main-menu" + 1}
-                                            anchorEl={this.state.anchor}
-                                            open={Boolean(this.state.anchor)}
-                                            onClose={this.handleClose}>
-                                            <MenuItem onClick={this.handleClose}>Edit</MenuItem>
-                                            <MenuItem onClick={this.handleClose}>Move Up</MenuItem>
-                                            <MenuItem onClick={this.handleClose}>Move Down</MenuItem>
-                                            <MenuItem onClick={this.handleClose}>Delete</MenuItem>
-                                        </Menu>
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                            ))}
-                            {list.length > 0 && (
-                                <li className="button-list">
-                                    <Button color="primary">
-                                        Ajouter un événement
+                            </li>
+                        )}
+                        {list.map((e, i) => (
+                            <ListItem key={i}>
+                                <Avatar>
+                                    {{
+                                        'activity': (
+                                            <ImageIcon />
+                                        ),
+                                        'transport': (
+                                            <ImageIcon />
+                                        ),
+                                        'plaintext': (
+                                            <ImageIcon />
+                                        ),
+                                        default: (
+                                            <ImageIcon />
+                                        )
+                                    }[e.type]}
+                                </Avatar>
+                                <ListItemText primary={e.title} secondary={e.text} />
+                                <ListItemSecondaryAction>
+                                    <IconButton aria-haspopup="true" onClick={this.handleClick} aria-label="edit" aria-owns={this.state.anchor ? 'item-main-menu-' + i : null}>
+                                        <MoreVertIcon />
+                                    </IconButton>
+                                    <Menu
+                                        id={"item-main-menu" + 1}
+                                        anchorEl={this.state.anchor}
+                                        open={Boolean(this.state.anchor)}
+                                        onClose={this.handleClose}>
+                                        <MenuItem onClick={this.handleClose}>Edit</MenuItem>
+                                        <MenuItem onClick={this.handleClose}>Move Up</MenuItem>
+                                        <MenuItem onClick={this.handleClose}>Move Down</MenuItem>
+                                        <MenuItem onClick={this.handleClose}>Delete</MenuItem>
+                                    </Menu>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        ))}
+                        {list.length > 0 && (
+                            <li className="button-list">
+                                <Button color="primary">
+                                    Ajouter un événement
                         </Button>
-                                </li>
-                            )}
-                        </List>
-                    </div>
-                </section >
-            );
-        } else {
-            return (
-                <section className="main-page unset">
-                    <div className="app-bar"><Dashboard /><h2>Vue d'ensemble</h2></div>
-                    <Timeline></Timeline>
-                    <div className="wrapper empty">
-                        <span className="button-label">Add a day</span>
-                        <Button onClick={this.openDayDialog} variant="fab" color="primary" aria-label="add">
-                            <AddIcon />
-                        </Button>
-                        <DayDialog open={this.state.open} onClose={this.closeDayDialog} onSave={this.saveDayDialog} />
-                    </div>
-                </section>
-            )
-        }
+                            </li>
+                        )}
+                    </List>
+                </div>
+            </section >
+        );
     }
 }
 function mapStateToProps(state) {

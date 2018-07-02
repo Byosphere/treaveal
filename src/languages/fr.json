@@ -42,7 +42,7 @@
         "check-out": "Date de départ",
         "phone": "Numéro de téléphone",
         "address": "Adresse",
-        "autocomplete": "Remplir dynamiquement les jours à partir des dates renseignées",
+        "autocomplete": "Remplir dynamiquement les jours suivants à partir des dates renseignées",
         "delete": "Supprimer l'hotel"
     }
 }

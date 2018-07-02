@@ -6,16 +6,25 @@ class HotelDialog extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            name: this.props.hotel.name,
-            checkIn: this.props.hotel.checkIn || this.props.date,
-            checkOut: this.props.hotel.checkOut,
-            phone: this.props.hotel.phone,
-            address: this.props.hotel.address,
-            autocomplete: false
+        if (this.props.hotel) {
+            this.state = {
+                name: this.props.hotel.name,
+                checkIn: this.props.hotel.checkIn,
+                checkOut: this.props.hotel.checkOut,
+                phone: this.props.hotel.phone,
+                address: this.props.hotel.address,
+                autocomplete: false
+            }
+        } else {
+            this.state = {
+                name: '',
+                checkIn: this.props.date,
+                checkOut: '',
+                phone: '',
+                address: '',
+                autocomplete: false
+            }
         }
-
         this.handleClose = this.handleClose.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -101,7 +110,7 @@ class HotelDialog extends React.Component {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.handleClose} color="secondary">
+                    <Button disabled={!this.props.hotel} onClick={this.handleClose} color="secondary">
                         {T.translate('hotel.delete')}
                     </Button>
                     <Button onClick={this.handleClose}>
