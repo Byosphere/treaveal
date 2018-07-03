@@ -13,7 +13,6 @@ class Hotelbox extends React.Component {
         this.state = {
             currentDay: this.props.currentDay,
             day: this.props.days[this.props.currentDay],
-            hotel: this.props.days[this.props.currentDay].hotel || null,
             open: false,
         }
 
@@ -65,7 +64,7 @@ class Hotelbox extends React.Component {
                         />
                         <CardContent>
                             <Typography gutterBottom variant="headline" component="h2">
-                                {this.state.hotel.name}
+                                {this.state.day.hotel.name}
                             </Typography>
                         </CardContent>
                     </Card>
@@ -79,7 +78,7 @@ class Hotelbox extends React.Component {
                         <Button onClick={this.handleClick} variant="fab" color="primary" aria-label="add" >
                             <AddIcon />
                         </Button>
-                        <HotelDialog hotel={this.state.hotel} date={this.state.day.date} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave}></HotelDialog>
+                        <HotelDialog hotel={this.state.day.hotel} date={this.state.day.date} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave}></HotelDialog>
                     </Card>
                 </section>
             );

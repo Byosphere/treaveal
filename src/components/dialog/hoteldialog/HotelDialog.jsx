@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControlLabel, Checkbox, Divider } from '@material-ui/core';
 import T from 'i18n-react';
 
 class HotelDialog extends React.Component {
@@ -31,11 +31,20 @@ class HotelDialog extends React.Component {
     }
 
     handleClose() {
+        this.setState({
+            name: '',
+            checkIn: this.props.date,
+            checkOut: '',
+            phone: '',
+            address: '',
+            autocomplete: false
+        });
         this.props.onClose();
     }
 
     handleSave() {
         this.props.onSave(this.state, this.state.autocomplete);
+        this.props.onClose();
     }
 
     handleChange(name, event) {
@@ -43,12 +52,21 @@ class HotelDialog extends React.Component {
             [name]: event.target.value
         });
     }
+    
+    componentWillUpdate(nextProps) {
+        if (nextProps.date !== this.props.date) {
+            this.setState({
+                checkIn: nextProps.date
+            });
+        }
+    }
 
     render() {
 
         return (
             <Dialog open={this.props.open} onClose={this.handleClose} aria-labelledby="hotel-dialog" className="hotel-dialog dialog" >
                 <DialogTitle id="travel-dialog-title">{T.translate('hotel.create')}</DialogTitle>
+                <Divider />
                 <DialogContent>
                     <TextField
                         id="hotel-name"

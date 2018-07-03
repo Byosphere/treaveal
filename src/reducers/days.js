@@ -40,16 +40,18 @@ export default (state = initialState, action) => {
             if (action.hotel.autocomplete) {
                 let nbDays = daysBetween(new Date(action.hotel.checkIn), new Date(action.hotel.checkOut));
                 let date = new Date(action.hotel.checkIn);
-                for (let index = 0; index < nbDays; index++) {
+                for (let index = 0; index <= nbDays; index++) {
                     if (newstate.list[action.dayNum + index]) {
-                        newstate.list[action.dayNum + index].date = formatDate(date.setDate(date.getDate() + index));
+                        newstate.list[action.dayNum + index].hotel = action.hotel;
                     } else {
                         newstate.list[action.dayNum + index] = {
                             name: action.hotel.name + ': day ' + index,
-                            date: formatDate(date.setDate(date.getDate() + index))
+                            date: formatDate(date.setDate(date.getDate() + index)),
+                            hotel: action.hotel
                         }
                     }
                 }
+                newstate.nbDays = newstate.list.length;
             } else {
                 newstate.list[action.dayNum].hotel = action.hotel;
             }

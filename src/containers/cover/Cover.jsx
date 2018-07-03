@@ -53,7 +53,7 @@ class Cover extends React.Component {
                 dateError: false
             });
 
-            this.props.saveTravelInfo(this.state.name, this.state.location, null, this.state.date);
+            this.props.saveTravelInfo(this.state.name, this.state.location, this.state.date);
             this.props.setDay({ name: this.state.name, date: this.state.date });
         }
     }

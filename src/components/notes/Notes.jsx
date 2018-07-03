@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TextField, Card, CardContent, Button } from '@material-ui/core';
-import { saveTravelInfo } from '../../actions/travelActions';
+import { setNotes } from '../../actions/travelActions';
 import T from 'i18n-react';
 
 class Notes extends React.Component {
@@ -26,7 +26,7 @@ class Notes extends React.Component {
     }
 
     save() {
-        this.props.saveTravelInfo(null, null, null, this.state.value);
+        this.props.setNotes(this.state.value);
         this.setState({
             disabled: true,
             savedValue: this.state.value
@@ -63,4 +63,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { saveTravelInfo })(Notes);
+export default connect(mapStateToProps, { setNotes })(Notes);

@@ -1,4 +1,4 @@
-import { SET_TRAVEL_INFO, SET_HOTEL, SET_DAY, SET_CURRENT_DAY, DELETE_TRAVEL } from '../Constants';
+import { SET_TRAVEL_INFO, SET_NOTES, DELETE_TRAVEL } from '../Constants';
 
 const initialState = {
     init: false,
@@ -10,17 +10,21 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+    var newstate = Object.assign({}, state);
     switch (action.type) {
 
         case SET_TRAVEL_INFO:
-            return {
-                init: true,
-                notes: action.notes || state.notes,
-                location: action.location || state.location,
-                title: action.title || state.title,
-                updatedDate: action.updatedDate || state.updatedDate,
-                departureDate: action.departureDate || state.departureDate
-            };
+            newstate.init = true;
+            newstate.location = action.location || state.location;
+            newstate.title = action.title || state.title;
+            newstate.departureDate = action.departureDate || state.departureDate;
+            newstate.updatedDate = action.updatedDate;
+            return newstate;
+
+        case SET_NOTES:
+            newstate.notes = action.notes;
+            newstate.updatedDate = action.updatedDate;
+            return newstate;
 
         case DELETE_TRAVEL:
             return initialState;

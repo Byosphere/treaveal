@@ -1,14 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ListItem, Avatar, ListItemText, List, ListItemSecondaryAction, IconButton, Chip, Menu, MenuItem, Button, Divider } from '@material-ui/core';
+import { ListItem, Avatar, ListItemText, List, ListItemSecondaryAction, IconButton, Chip, Menu, MenuItem, Button, Divider, TextField } from '@material-ui/core';
 import ImageIcon from '@material-ui/icons/Image';
-import AddIcon from '@material-ui/icons/Add';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Delete from '@material-ui/icons/Delete';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Timeline from '../../components/timeline/Timeline.jsx';
 import Dashboard from '@material-ui/icons/Dashboard';
-import DayDialog from '../../components/dialog/daydialog/DayDialog.jsx';
 import DeleteDayDialog from '../../components/dialog/deleteDayDialog/DeleteDayDialog.jsx';
 import { setDay, deleteDay } from '../../actions/dayActions';
 import T from 'i18n-react';
@@ -114,7 +112,15 @@ class MainPage extends React.Component {
                     <Divider />
                     <header>
                         <h2>{T.translate('day')} {this.state.currentDay + 1}</h2>
-                        <span>- {day.city} - </span>
+                        <TextField
+                            id="full-width"
+                            placeholder="day name"
+                            fullWidth
+                            margin="normal"
+                        />
+                        <Button color="primary">
+                            {T.translate('save')}
+                        </Button>
                     </header>
                     <List>
                         {list.length === 0 && (
