@@ -21,6 +21,7 @@
             "validate": "Créer la plannification"
         }
     },
+    "error-message": "Vérifiez la validité de ce champs",
     "cancel": "annuler",
     "validate": "valider",
     "save": "enregistrer",
@@ -43,6 +44,7 @@
         "phone": "Numéro de téléphone",
         "address": "Adresse",
         "autocomplete": "Remplir dynamiquement les jours suivants à partir des dates renseignées",
-        "delete": "Supprimer l'hotel"
+        "delete": "Supprimer l'hotel",
+        "error-hotel-date": "La date de départ ne peut être avant la date d'arrivée"
     }
 }

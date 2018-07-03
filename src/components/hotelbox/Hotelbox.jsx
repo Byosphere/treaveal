@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, CardMedia, Typography, CardContent, Button } from '@material-ui/core';
+import { Card, CardMedia, Typography, CardContent, Button, Divider } from '@material-ui/core';
 import { setHotel } from '../../actions/dayActions';
 import AddIcon from '@material-ui/icons/Add';
 import HotelDialog from '../dialog/hoteldialog/HotelDialog.jsx';
+import T from 'i18n-react';
+import { getNavigatorLanguage } from '../../utils/helpers';
 
 class Hotelbox extends React.Component {
 
@@ -57,15 +59,21 @@ class Hotelbox extends React.Component {
             return (
                 <section className="hotel-details">
                     <Card raised={true} classes={{ root: "card" }}>
-                        <CardMedia
-                            classes={{ root: "image" }}
-                            image="../../../../public/images/guanzhou.jpg"
-                            title="Contemplative Reptile"
-                        />
                         <CardContent>
                             <Typography gutterBottom variant="headline" component="h2">
                                 {this.state.day.hotel.name}
                             </Typography>
+                            <Divider />
+                            <div className="hotel-info">
+                                <div>
+                                    <p>{T.translate('check-in')}</p>
+                                    <span>{new Date(this.state.day.hotel.checkIn).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'short', month: 'short', day: 'numeric' })}</span>
+                                </div>
+                                <div>
+                                    <p>{T.translate('check-out')}</p>
+                                    <span>{new Date(this.state.day.hotel.checkOut).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'short', month: 'short', day: 'numeric' })}</span>
+                                </div>
+                            </div>
                         </CardContent>
                     </Card>
                 </section>

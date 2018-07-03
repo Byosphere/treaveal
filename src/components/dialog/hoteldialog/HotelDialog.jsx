@@ -13,7 +13,10 @@ class HotelDialog extends React.Component {
                 checkOut: this.props.hotel.checkOut,
                 phone: this.props.hotel.phone,
                 address: this.props.hotel.address,
-                autocomplete: false
+                autocomplete: false,
+                nameError: '',
+                checkInError: '',
+                checkOutError: ''
             }
         } else {
             this.state = {
@@ -22,7 +25,10 @@ class HotelDialog extends React.Component {
                 checkOut: '',
                 phone: '',
                 address: '',
-                autocomplete: false
+                autocomplete: false,
+                nameError: '',
+                checkInError: '',
+                checkOutError: ''
             }
         }
         this.handleClose = this.handleClose.bind(this);
@@ -37,14 +43,55 @@ class HotelDialog extends React.Component {
             checkOut: '',
             phone: '',
             address: '',
-            autocomplete: false
+            autocomplete: false,
+            nameError: '',
+            checkInError: '',
+            checkOutError: ''
         });
         this.props.onClose();
     }
 
+    verifyHotelData() {
+        let valid = true;
+        this.setState({
+            nameError: '',
+            checkInError: '',
+            checkOutError: ''
+        });
+
+        if (!this.state.name) {
+            this.setState({
+                nameError: T.translate('error-message')
+            });
+            valid = false;
+        }
+        if (!this.state.checkIn) {
+            valid = false;
+            this.setState({
+                checkInError: T.translate('error-message')
+            });
+        }
+        if (!this.state.checkOut) {
+            valid = false;
+            this.setState({
+                checkOutError: T.translate('error-message')
+            });
+        }
+        if (new Date(this.state.checkIn) > new Date(this.state.checkOut)) {
+            this.setState({
+                checkInError: T.translate('hotel.error-hotel-date'),
+                checkOutError: T.translate('hotel.error-hotel-date')
+            });
+            valid = false;
+        }
+        return valid;
+    }
+
     handleSave() {
-        this.props.onSave(this.state, this.state.autocomplete);
-        this.props.onClose();
+        if (this.verifyHotelData()) {
+            this.props.onSave(this.state, this.state.autocomplete);
+            this.props.onClose();
+        }
     }
 
     handleChange(name, event) {
@@ -52,7 +99,7 @@ class HotelDialog extends React.Component {
             [name]: event.target.value
         });
     }
-    
+
     componentWillUpdate(nextProps) {
         if (nextProps.date !== this.props.date) {
             this.setState({
@@ -74,6 +121,9 @@ class HotelDialog extends React.Component {
                         placeholder={this.state.name}
                         margin="normal"
                         fullWidth
+                        required
+                        error={this.state.nameError ? true : false}
+                        helperText={this.state.nameError}
                         onChange={(evt) => this.handleChange('name', evt)}
                     />
                     <TextField
@@ -82,6 +132,9 @@ class HotelDialog extends React.Component {
                         label={T.translate('hotel.check-in')}
                         margin="normal"
                         type="date"
+                        required
+                        error={this.state.checkInError ? true : false}
+                        helperText={this.state.checkInError}
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -92,16 +145,19 @@ class HotelDialog extends React.Component {
                         id="hotel-checkout"
                         defaultValue={this.state.checkOut}
                         margin="normal"
+                        error={this.state.checkOutError ? true : false}
+                        helperText={this.state.checkOutError}
                         label={T.translate('hotel.check-out')}
                         type="date"
                         fullWidth
+                        required
                         InputLabelProps={{
                             shrink: true,
                         }}
                         onChange={(evt) => this.handleChange('checkOut', evt)}
                     />
                     <TextField
-                        id="hotel-name"
+                        id="hotel-phone"
                         label={T.translate('hotel.phone')}
                         placeholder={this.state.phone}
                         margin="normal"
@@ -109,7 +165,7 @@ class HotelDialog extends React.Component {
                         onChange={(evt) => this.handleChange('phone', evt)}
                     />
                     <TextField
-                        id="hotel-name"
+                        id="hotel-address"
                         label={T.translate('hotel.address')}
                         placeholder={this.state.address}
                         margin="normal"

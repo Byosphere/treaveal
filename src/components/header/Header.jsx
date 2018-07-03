@@ -79,7 +79,7 @@ class Header extends React.Component {
                             <AccessTime />
                         </Avatar>
                     }
-                    label={T.translate('header.leaving-in') + " " + daysBetween(new Date(), new Date(this.state.departureDate)) + " " + T.translate('header.days')}
+                    label={T.translate('header.leaving-in') + " " + (daysBetween(new Date(), new Date(this.state.departureDate)) + 1) + " " + T.translate('header.days')}
                 />
             </section>
         );
