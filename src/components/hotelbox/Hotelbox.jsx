@@ -45,14 +45,14 @@ class Hotelbox extends React.Component {
         this.handleClose();
     }
 
-    componentWillUpdate(nextProps) {
-        if (nextProps.currentDay !== this.props.currentDay || nextProps.days !== this.props.days) {
-            this.setState({
-                currentDay: nextProps.currentDay,
-                day: nextProps.days[nextProps.currentDay],
-                open: false,
-            });
+    static getDerivedStateFromProps(props, state) {
+        if (props.currentDay !== state.currentDay) {
+            return {
+                currentDay: props.currentDay,
+                day: props.days[props.currentDay],
+            }
         }
+        return null;
     }
 
     render() {
@@ -94,7 +94,7 @@ class Hotelbox extends React.Component {
                         <Button onClick={this.handleClick} variant="fab" color="primary" aria-label="add" >
                             <AddIcon />
                         </Button>
-                        <HotelDialog hotel={this.state.day.hotel} date={this.state.day.date} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave}></HotelDialog>
+                        <HotelDialog hotel={this.state.day.hotel || {checkIn:this.state.day.date}} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave}></HotelDialog>
                     </Card>
                 </section>
             );

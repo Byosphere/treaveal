@@ -7,30 +7,16 @@ class HotelDialog extends React.Component {
 
     constructor(props) {
         super(props);
-        if (this.props.hotel) {
-            this.state = {
-                name: this.props.hotel.name,
-                checkIn: this.props.hotel.checkIn,
-                checkOut: this.props.hotel.checkOut,
-                phone: this.props.hotel.phone,
-                address: this.props.hotel.address,
-                autocomplete: false,
-                nameError: '',
-                checkInError: '',
-                checkOutError: ''
-            }
-        } else {
-            this.state = {
-                name: '',
-                checkIn: this.props.date,
-                checkOut: '',
-                phone: '',
-                address: '',
-                autocomplete: false,
-                nameError: '',
-                checkInError: '',
-                checkOutError: ''
-            }
+        this.state = {
+            name: this.props.hotel.name,
+            checkIn: this.props.hotel.checkIn,
+            checkOut: this.props.hotel.checkOut,
+            phone: this.props.hotel.phone,
+            address: this.props.hotel.address,
+            autocomplete: false,
+            nameError: '',
+            checkInError: '',
+            checkOutError: ''
         }
         this.handleClose = this.handleClose.bind(this);
         this.handleSave = this.handleSave.bind(this);
@@ -101,16 +87,16 @@ class HotelDialog extends React.Component {
         });
     }
 
-    componentWillUpdate(nextProps) {
-        if (nextProps.date !== this.props.date) {
-            this.setState({
-                checkIn: nextProps.date
-            });
+    static getDerivedStateFromProps(props, state) {
+        if (props.hotel.checkIn !== state.checkIn) {
+            return {
+                checkIn: props.hotel.checkIn
+            }
         }
+        return null;
     }
 
     render() {
-
         return (
             <Dialog open={this.props.open} onClose={this.handleClose} aria-labelledby="hotel-dialog" className="hotel-dialog dialog" >
                 <DialogTitle id="hotel-dialog-title">{T.translate('hotel.create')}</DialogTitle>
@@ -204,8 +190,7 @@ HotelDialog.propTypes = {
     'open': PropTypes.bool.isRequired,
     'onClose': PropTypes.func.isRequired,
     'onSave': PropTypes.func.isRequired,
-    'hotel': PropTypes.object,
-    'date': PropTypes.string
+    'hotel': PropTypes.object.isRequired
 }
 
 export default HotelDialog;

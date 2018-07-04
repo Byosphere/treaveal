@@ -48,17 +48,16 @@ class Header extends React.Component {
         });
         this.handleClose();
     }
-
-    componentWillUpdate(nextProps) {
-        if (nextProps.updatedDate != this.state.updatedDate) {
-            this.setState({
-                updatedDate: nextProps.updatedDate
-            });
+    static getDerivedStateFromProps(props, state) {
+        if (props.updatedDate !== state.updatedDate) {
+            return {
+                updatedDate: props.updatedDate
+            }
         }
+        return null;
     }
 
     render() {
-
         return (
             <section className="app-header">
                 <div className="title">

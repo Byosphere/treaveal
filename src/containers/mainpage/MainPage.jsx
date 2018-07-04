@@ -96,14 +96,14 @@ class MainPage extends React.Component {
         });
     }
 
-    componentWillUpdate(nextProps) {
-
-        if (nextProps.currentDay !== this.state.currentDay || nextProps.days !== this.props.days) {
-            this.setState({
-                day: nextProps.days[nextProps.currentDay],
-                currentDay: nextProps.currentDay
-            });
+    static getDerivedStateFromProps(props, state) {
+        if (props.currentDay !== state.currentDay || props.days[props.currentDay] !== state.day) {
+            return {
+                day: props.days[props.currentDay],
+                currentDay: props.currentDay
+            }
         }
+        return null;
     }
 
     render() {

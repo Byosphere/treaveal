@@ -33,13 +33,14 @@ class Timeline extends React.Component {
 
     }
 
-    componentWillUpdate(nextProps) {
-        if (nextProps.nbDays !== this.state.nbDays || nextProps.currentDay !== this.state.currentDay) {
-            this.setState({
-                currentDay: nextProps.currentDay,
-                nbDays: nextProps.nbDays
-            });
+    static getDerivedStateFromProps(props, state) {
+        if (props.nbDays !== state.nbDays || props.currentDay !== state.currentDay) {
+            return {
+                currentDay: props.currentDay,
+                nbDays: props.nbDays
+            }
         }
+        return null;
     }
 
     render() {
@@ -51,7 +52,7 @@ class Timeline extends React.Component {
                     position="static"
                     activeStep={this.state.currentDay}
                     nextButton={
-                        <Button size="small" onClick={this.handleNext.bind(this)} disabled={this.state.currentDay === (this.state.nbDays -1)}>
+                        <Button size="small" onClick={this.handleNext.bind(this)} disabled={this.state.currentDay === (this.state.nbDays - 1)}>
                             Next
                             <KeyboardArrowRight />
                         </Button>
