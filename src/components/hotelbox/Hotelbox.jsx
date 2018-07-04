@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, CardMedia, Typography, CardContent, Button, Divider } from '@material-ui/core';
+import { Card, Typography, CardContent, Button, Divider } from '@material-ui/core';
 import { setHotel } from '../../actions/dayActions';
 import AddIcon from '@material-ui/icons/Add';
+import Home from '@material-ui/icons/Home';
 import HotelDialog from '../dialog/hoteldialog/HotelDialog.jsx';
 import T from 'i18n-react';
 import { getNavigatorLanguage } from '../../utils/helpers';
@@ -60,20 +61,27 @@ class Hotelbox extends React.Component {
                 <section className="hotel-details">
                     <Card raised={true} classes={{ root: "card" }}>
                         <CardContent>
-                            <Typography gutterBottom variant="headline" component="h2">
+                            <Typography className="hotel-title" gutterBottom variant="headline" component="h2">
+                                <Home />
                                 {this.state.day.hotel.name}
                             </Typography>
                             <Divider />
                             <div className="hotel-info">
                                 <div>
-                                    <p>{T.translate('check-in')}</p>
+                                    <p><b>{T.translate('hotel.check-in')}</b></p>
                                     <span>{new Date(this.state.day.hotel.checkIn).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'short', month: 'short', day: 'numeric' })}</span>
                                 </div>
                                 <div>
-                                    <p>{T.translate('check-out')}</p>
+                                    <p><b>{T.translate('hotel.check-out')}</b></p>
                                     <span>{new Date(this.state.day.hotel.checkOut).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'short', month: 'short', day: 'numeric' })}</span>
                                 </div>
                             </div>
+                            <p className="hotel-address">
+                                <b>{T.translate('hotel.address')} : </b>{this.state.day.hotel.address}
+                            </p>
+                            <p className="hotel-phone">
+                                <b>{T.translate('hotel.phone')} : </b>{this.state.day.hotel.phone}
+                            </p>
                         </CardContent>
                     </Card>
                 </section>
@@ -82,7 +90,7 @@ class Hotelbox extends React.Component {
             return (
                 <section className="hotel-details">
                     <Card raised={true} classes={{ root: "card no-hotel" }}>
-                        <p>Add an hotel</p>
+                        <p>{T.translate('hotel.create')}</p>
                         <Button onClick={this.handleClick} variant="fab" color="primary" aria-label="add" >
                             <AddIcon />
                         </Button>

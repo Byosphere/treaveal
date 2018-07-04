@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import Edit from '@material-ui/icons/Edit';
 import AccessTime from '@material-ui/icons/AccessTime'
 import TravelDialog from '../dialog/traveldialog/TravelDialog.jsx';
@@ -19,7 +18,7 @@ class Header extends React.Component {
         this.state = {
             open: false,
             title: this.props.title || '',
-            location: getCountryFromCountryCode(this.props.location),
+            location: this.props.location,
             updatedDate: this.props.updatedDate,
             departureDate: this.props.departureDate
         }
@@ -45,7 +44,7 @@ class Header extends React.Component {
         this.props.saveTravelInfo(title, location);
         this.setState({
             title: title,
-            location: getCountryFromCountryCode(location)
+            location: location
         });
         this.handleClose();
     }
@@ -63,7 +62,7 @@ class Header extends React.Component {
         return (
             <section className="app-header">
                 <div className="title">
-                    <h1>{this.state.location} :
+                    <h1>{getCountryFromCountryCode(this.state.location)} :
                     <span>{this.state.title}</span>
                         <IconButton onClick={this.handleClick} color="inherit" aria-label="New">
                             <Edit />
@@ -71,7 +70,7 @@ class Header extends React.Component {
                     </h1>
                     <span>{T.translate("header.updated")} {new Date(this.state.updatedDate).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 </div>
-                <TravelDialog open={this.state.open} onClose={this.handleClose} onSave={this.handleSave} />
+                <TravelDialog title={this.state.title} location={this.state.location} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave} />
                 <Chip
                     className="departure"
                     avatar={

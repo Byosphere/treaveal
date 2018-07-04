@@ -13,6 +13,7 @@
     "@material-ui/icons": "^1.1.0",
     "i18n-react": "^0.6.4",
     "lodash": "^4.17.4",
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.5",

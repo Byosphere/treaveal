@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControlLabel, Checkbox, Divider } from '@material-ui/core';
 import T from 'i18n-react';
 
@@ -112,7 +113,7 @@ class HotelDialog extends React.Component {
 
         return (
             <Dialog open={this.props.open} onClose={this.handleClose} aria-labelledby="hotel-dialog" className="hotel-dialog dialog" >
-                <DialogTitle id="travel-dialog-title">{T.translate('hotel.create')}</DialogTitle>
+                <DialogTitle id="hotel-dialog-title">{T.translate('hotel.create')}</DialogTitle>
                 <Divider />
                 <DialogContent>
                     <TextField
@@ -197,6 +198,14 @@ class HotelDialog extends React.Component {
             </Dialog>
         );
     }
+}
+
+HotelDialog.propTypes = {
+    'open': PropTypes.bool.isRequired,
+    'onClose': PropTypes.func.isRequired,
+    'onSave': PropTypes.func.isRequired,
+    'hotel': PropTypes.object,
+    'date': PropTypes.string
 }
 
 export default HotelDialog;

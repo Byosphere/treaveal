@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Divider } from '@material-ui/core';
 import T from 'i18n-react';
 
-class DayDialog extends React.Component {
+class EventDialog extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -40,8 +39,8 @@ class DayDialog extends React.Component {
 	render() {
 
 		return (
-			<Dialog open={this.props.open} onClose={this.handleClose} aria-labelledby="day-dialog" className="day-dialog dialog" >
-				<DialogTitle id="day-dialog-title">{T.translate('create-day')}</DialogTitle>
+			<Dialog open={this.props.open} onClose={this.handleClose} aria-labelledby="event-dialog" className="event-dialog dialog" >
+				<DialogTitle id="event-dialog-title">{T.translate('create-event')}</DialogTitle>
 				<Divider />
 				<DialogContent>
 
@@ -59,10 +58,4 @@ class DayDialog extends React.Component {
 	}
 }
 
-DayDialog.propTypes = {
-	'open': PropTypes.bool.isRequired,
-	'onClose': PropTypes.func.isRequired,
-	'onSave': PropTypes.func.isRequired,
-}
-
-export default DayDialog;
+export default EventDialog;

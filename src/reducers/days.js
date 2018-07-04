@@ -1,4 +1,4 @@
-import { SET_HOTEL, SET_DAY, SET_CURRENT_DAY, DELETE_DAY } from '../Constants';
+import { SET_HOTEL, SET_DAY, SET_CURRENT_DAY, DELETE_DAY, SET_EVENT } from '../Constants';
 import { daysBetween, formatDate } from '../utils/helpers';
 
 const initialState = {
@@ -55,6 +55,10 @@ export default (state = initialState, action) => {
             } else {
                 newstate.list[action.dayNum].hotel = action.hotel;
             }
+            return newstate;
+
+        case SET_EVENT:
+
             return newstate;
 
         default:

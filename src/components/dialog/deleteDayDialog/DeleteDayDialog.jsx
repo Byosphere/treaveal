@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
 import T from 'i18n-react';
 
 class DeleteDayDialog extends React.Component {
@@ -35,6 +36,12 @@ class DeleteDayDialog extends React.Component {
 			</Dialog>
 		);
 	}
+}
+
+DeleteDayDialog.propTypes = {
+	'open': PropTypes.bool.isRequired,
+	'onClose': PropTypes.func.isRequired,
+	'onDelete': PropTypes.func.isRequired,
 }
 
 export default DeleteDayDialog;

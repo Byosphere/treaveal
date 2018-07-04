@@ -11,6 +11,7 @@ import DeleteDayDialog from '../../components/dialog/deleteDayDialog/DeleteDayDi
 import { setDay, deleteDay } from '../../actions/dayActions';
 import T from 'i18n-react';
 import { getNavigatorLanguage } from '../../utils/helpers';
+import EventDialog from '../../components/dialog/eventdialog/EventDialog.jsx';
 
 class MainPage extends React.Component {
 
@@ -22,7 +23,8 @@ class MainPage extends React.Component {
             day: this.props.days[this.props.currentDay],
             currentDay: this.props.currentDay,
             open: false,
-            deleteDayDialogOpen: false
+            deleteDayDialogOpen: false,
+            eventDialogOpen: false
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -31,6 +33,9 @@ class MainPage extends React.Component {
         this.saveDayDialog = this.saveDayDialog.bind(this);
         this.deleteDay = this.deleteDay.bind(this);
         this.openDeleteDayDialog = this.openDeleteDayDialog.bind(this);
+        this.openEvenDialog = this.openEvenDialog.bind(this);
+        this.closeEvenDialog = this.closeEvenDialog.bind(this);
+        this.saveEvenDialog = this.saveEvenDialog.bind(this);
     }
 
     handleClick(event) {
@@ -65,7 +70,23 @@ class MainPage extends React.Component {
     openDeleteDayDialog() {
         this.setState({
             deleteDayDialogOpen: true
-        })
+        });
+    }
+
+    openEvenDialog() {
+        this.setState({
+            eventDialogOpen: true
+        });
+    }
+
+    closeEvenDialog() {
+        this.setState({
+            eventDialogOpen: false
+        });
+    }
+
+    saveEvenDialog() {
+        // TODO
     }
 
     deleteDay() {
@@ -107,7 +128,7 @@ class MainPage extends React.Component {
                         <IconButton aria-haspopup="true" className={this.props.days.length === 1 ? "icon-button disabled" : "icon-button"} onClick={this.openDeleteDayDialog} aria-label="delete" disabled={this.props.days.length === 1}>
                             <Delete />
                         </IconButton>
-                        <DeleteDayDialog day-id={this.state.currentDay} open={this.state.deleteDayDialogOpen} onClose={() => { this.setState({ deleteDayDialogOpen: false }) }} onDelete={this.deleteDay} />
+                        <DeleteDayDialog open={this.state.deleteDayDialogOpen} onClose={() => { this.setState({ deleteDayDialogOpen: false }) }} onDelete={this.deleteDay} />
                     </div>
                     <Divider />
                     <header>
@@ -176,6 +197,7 @@ class MainPage extends React.Component {
                         )}
                     </List>
                 </div>
+                <EventDialog open={this.state.eventDialogOpen} onClose={this.closeEvenDialog} onSave={this.saveEvenDialog} ></EventDialog>
             </section >
         );
     }

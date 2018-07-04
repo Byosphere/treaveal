@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControl, InputLabel, Select, MenuItem, Divider } from '@material-ui/core';
 import { COUNTRY_CODES } from '../../../Constants';
-import { deleteTravel } from '../../../actions/travelActions';
 import T from 'i18n-react';
 
 class TravelDialog extends React.Component {
@@ -36,7 +35,7 @@ class TravelDialog extends React.Component {
     }
 
     handledeleteTravel() {
-        this.props.deleteTravel();
+        // TODO
     }
 
     render() {
@@ -86,11 +85,12 @@ class TravelDialog extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        title: state.travel.title,
-        location: state.travel.location
-    }
+TravelDialog.propTypes = {
+    'title': PropTypes.string,
+    'location': PropTypes.string,
+    'open': PropTypes.bool.isRequired,
+    'onClose': PropTypes.func.isRequired,
+    'onSave': PropTypes.func.isRequired,
 }
 
-export default connect(mapStateToProps, { deleteTravel })(TravelDialog);
+export default TravelDialog;
