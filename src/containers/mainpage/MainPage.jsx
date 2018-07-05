@@ -4,11 +4,15 @@ import { ListItem, Avatar, ListItemText, List, ListItemSecondaryAction, IconButt
 import ImageIcon from '@material-ui/icons/Image';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Delete from '@material-ui/icons/Delete';
+import LocalActivity from '@material-ui/icons/LocalActivity';
+import Flight from '@material-ui/icons/Flight';
+import Note from '@material-ui/icons/Note';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Timeline from '../../components/timeline/Timeline.jsx';
 import Dashboard from '@material-ui/icons/Dashboard';
 import DeleteDayDialog from '../../components/dialog/deleteDayDialog/DeleteDayDialog.jsx';
-import { setDay, deleteDay } from '../../actions/dayActions';
+import { setDay, deleteDay, setEvent } from '../../actions/dayActions';
+import { EVENT_ACTIVITY, EVENT_TEXT, EVENT_TRANSPORT } from '../../Constants';
 import T from 'i18n-react';
 import { getNavigatorLanguage } from '../../utils/helpers';
 import EventDialog from '../../components/dialog/eventdialog/EventDialog.jsx';
@@ -24,7 +28,8 @@ class MainPage extends React.Component {
             currentDay: this.props.currentDay,
             open: false,
             deleteDayDialogOpen: false,
-            eventDialogOpen: false
+            eventDialogOpen: false,
+            currentEvent: {}
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -33,9 +38,9 @@ class MainPage extends React.Component {
         this.saveDayDialog = this.saveDayDialog.bind(this);
         this.deleteDay = this.deleteDay.bind(this);
         this.openDeleteDayDialog = this.openDeleteDayDialog.bind(this);
-        this.openEvenDialog = this.openEvenDialog.bind(this);
+        this.openEventDialog = this.openEventDialog.bind(this);
         this.closeEvenDialog = this.closeEvenDialog.bind(this);
-        this.saveEvenDialog = this.saveEvenDialog.bind(this);
+        this.saveEventDialog = this.saveEventDialog.bind(this);
     }
 
     handleClick(event) {
@@ -73,7 +78,7 @@ class MainPage extends React.Component {
         });
     }
 
-    openEvenDialog() {
+    openEventDialog() {
         this.setState({
             eventDialogOpen: true
         });
@@ -85,8 +90,11 @@ class MainPage extends React.Component {
         });
     }
 
-    saveEvenDialog() {
-        // TODO
+    saveEventDialog(event) {
+        this.props.setEvent(event);
+        this.setState({
+            eventDialogOpen: false
+        });
     }
 
     deleteDay() {
@@ -94,6 +102,19 @@ class MainPage extends React.Component {
         this.setState({
             deleteDayDialogOpen: false
         });
+    }
+
+    getAvatarFromType(type) {
+        switch (type) {
+            case EVENT_ACTIVITY:
+                return (<LocalActivity />);
+            case EVENT_TRANSPORT:
+                return (<Flight />);
+            case EVENT_TEXT:
+                return (<Note />);
+            default:
+                return (<Note />);
+        }
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -146,29 +167,16 @@ class MainPage extends React.Component {
                     <List>
                         {list.length === 0 && (
                             <li className="button-list">
-                                <p>Rien n'a été défini ce jour.</p>
-                                <Button color="primary" >
-                                    Ajouter un événement
-                            </Button>
+                                <p>{T.translate('event.no-event')}</p>
+                                <Button color="primary" onClick={this.openEventDialog}>
+                                    {T.translate('event.add')}
+                                </Button>
                             </li>
                         )}
                         {list.map((e, i) => (
                             <ListItem key={i}>
                                 <Avatar>
-                                    {{
-                                        'activity': (
-                                            <ImageIcon />
-                                        ),
-                                        'transport': (
-                                            <ImageIcon />
-                                        ),
-                                        'plaintext': (
-                                            <ImageIcon />
-                                        ),
-                                        default: (
-                                            <ImageIcon />
-                                        )
-                                    }[e.type]}
+                                    {this.getAvatarFromType(e.type)}
                                 </Avatar>
                                 <ListItemText primary={e.title} secondary={e.text} />
                                 <ListItemSecondaryAction>
@@ -190,14 +198,14 @@ class MainPage extends React.Component {
                         ))}
                         {list.length > 0 && (
                             <li className="button-list">
-                                <Button color="primary">
-                                    Ajouter un événement
-                        </Button>
+                                <Button color="primary" onClick={this.openEventDialog}>
+                                    {T.translate('event.add')}
+                                </Button>
                             </li>
                         )}
                     </List>
                 </div>
-                <EventDialog open={this.state.eventDialogOpen} onClose={this.closeEvenDialog} onSave={this.saveEvenDialog} ></EventDialog>
+                <EventDialog event={this.state.currentEvent} open={this.state.eventDialogOpen} onClose={this.closeEvenDialog} onSave={this.saveEventDialog} ></EventDialog>
             </section >
         );
     }
@@ -210,4 +218,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { setDay, deleteDay })(MainPage);
+export default connect(mapStateToProps, { setDay, deleteDay, setEvent })(MainPage);

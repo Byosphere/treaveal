@@ -58,7 +58,10 @@ export default (state = initialState, action) => {
             return newstate;
 
         case SET_EVENT:
-
+            if (!newstate.list[state.currentDay].events) {
+                newstate.list[state.currentDay].events = []
+            }
+            newstate.list[state.currentDay].events.push(action.event);
             return newstate;
 
         default:

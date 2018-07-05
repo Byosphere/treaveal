@@ -1,6 +1,8 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Divider } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Divider, InputLabel, Select, MenuItem } from '@material-ui/core';
 import T from 'i18n-react';
+import { EVENT_ACTIVITY, EVENT_TRANSPORT, EVENT_TEXT } from '../../../Constants';
 
 class EventDialog extends React.Component {
 
@@ -8,7 +10,12 @@ class EventDialog extends React.Component {
 		super(props);
 
 		this.state = {
-			name: ''
+			name: this.props.event.name || '',
+			type: this.props.event.type || '',
+			description: this.props.event.description || '',
+			startHour: this.props.event.startHour || '',
+			timeLength: this.props.event.timeLength || '',
+			nameError: '',
 		}
 
 		this.handleClose = this.handleClose.bind(this);
@@ -17,22 +24,16 @@ class EventDialog extends React.Component {
 	}
 
 	handleClose() {
-		this.setState({
-			name: ''
-		});
 		this.props.onClose();
 	}
 
 	handleSave() {
 		this.props.onSave(Object.assign({}, this.state));
-		this.setState({
-			name: ''
-		});
 	}
 
-	handleChange(name, event) {
+	handleChange(event) {
 		this.setState({
-			[name]: event.target.value
+			[event.target.name]: event.target.value
 		});
 	}
 
@@ -43,7 +44,18 @@ class EventDialog extends React.Component {
 				<DialogTitle id="event-dialog-title">{T.translate('create-event')}</DialogTitle>
 				<Divider />
 				<DialogContent>
-
+					<InputLabel htmlFor='type'>{T.translate('event.type')}</InputLabel>
+					<Select
+						value={this.state.type}
+						onChange={this.handleChange}
+						inputProps={{
+							name: 'type',
+							id: 'type',
+						}}>
+						<MenuItem value={EVENT_ACTIVITY}>{T.translate('activity')}</MenuItem>
+						<MenuItem value={EVENT_TRANSPORT}>{T.translate('transport')}</MenuItem>
+						<MenuItem value={EVENT_TEXT}>{T.translate('text')}</MenuItem>
+					</Select>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={this.handleClose}>
@@ -56,6 +68,12 @@ class EventDialog extends React.Component {
 			</Dialog>
 		);
 	}
+}
+EventDialog.propsType = {
+	'open': PropTypes.bool.isRequired,
+	'onClose': PropTypes.func.isRequired,
+	'onSave': PropTypes.func.isRequired,
+	'event': PropTypes.object.isRequired
 }
 
 export default EventDialog;

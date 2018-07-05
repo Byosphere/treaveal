@@ -1,10 +1,17 @@
-import { SET_DAY, SET_CURRENT_DAY, DELETE_DAY, SET_HOTEL } from "../Constants";
+import { SET_DAY, SET_CURRENT_DAY, DELETE_DAY, SET_HOTEL, SET_EVENT } from "../Constants";
 
 export function setDay(day, dayNum) {
 	return {
 		type: SET_DAY,
 		day,
 		dayNum
+	}
+}
+
+export function setEvent(event) {
+	return {
+		type: SET_EVENT,
+		event,
 	}
 }
 
