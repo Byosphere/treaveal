@@ -43,7 +43,7 @@
         "check-out": "Date de départ",
         "phone": "Numéro de téléphone",
         "address": "Adresse",
-        "autocomplete": "Remplir dynamiquement les jours suivants à partir des dates renseignées",
+        "autocomplete": "Ajouter dynamiquement les jours suivants à partir des dates renseignées",
         "delete": "Supprimer l'hébergement",
         "error-hotel-date": "La date de départ ne peut être avant la date d'arrivée"
     },

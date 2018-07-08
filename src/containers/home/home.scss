@@ -60,6 +60,16 @@
         grid-column: 3 / 3;
         grid-row: 2 / 5;
     }
+
+    .notes.hidden ~ .main-page {
+        grid-column: 2 / 4;
+        grid-row: 2 / 5;
+
+        .app-bar {
+            margin-left: 300px;
+        }
+    }
+
     .hotel-details {
         grid-column: 4 / 4;
         grid-row: 3 / 4;

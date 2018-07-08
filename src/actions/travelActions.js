@@ -1,4 +1,4 @@
-import { SET_TRAVEL_INFO, SET_NOTES, DELETE_TRAVEL } from "../Constants";
+import { SET_TRAVEL_INFO, SET_NOTES, DELETE_TRAVEL, TOGGLE_NOTES } from "../Constants";
 
 
 export function saveTravelInfo(title, location, departureDate) {
@@ -22,5 +22,11 @@ export function setNotes(notes) {
 export function deleteTravel() {
     return {
         type: DELETE_TRAVEL
+    }
+}
+
+export function toggleNotes() {
+    return {
+        type: TOGGLE_NOTES
     }
 }

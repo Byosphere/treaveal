@@ -12,7 +12,8 @@ class Notes extends React.Component {
         this.state = {
             value: this.props.notes || "",
             disabled: true,
-            savedValue: this.props.notes
+            savedValue: this.props.notes,
+            display: this.props.display
         }
         this.textChange = this.textChange.bind(this);
         this.save = this.save.bind(this);
@@ -32,10 +33,18 @@ class Notes extends React.Component {
             savedValue: this.state.value
         })
     }
+    static getDerivedStateFromProps(props, state) {
+        if (props.display !== state.display) {
+            return {
+                display: props.display
+            }
+        }
+        return null;
+    }
 
     render() {
         return (
-            <section className="notes">
+            <section className={this.state.display ? 'notes' : 'notes hidden'}>
                 <Card raised={true}>
                     <CardContent className="card-content">
                         <TextField
@@ -59,7 +68,8 @@ class Notes extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        notes: state.travel.notes
+        notes: state.travel.notes,
+        display: state.travel.displayNotes
     }
 }
 

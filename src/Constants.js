@@ -11,5 +11,6 @@ export const SET_EVENT = "set_event";
 export const EVENT_ACTIVITY = "event_activity";
 export const EVENT_TEXT = "event_text";
 export const EVENT_TRANSPORT = "event_transport";
+export const TOGGLE_NOTES = 'toggle_notes';
 
 export const COUNTRY_CODES = require(`./data/country-codes.json`);

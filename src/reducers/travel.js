@@ -1,4 +1,4 @@
-import { SET_TRAVEL_INFO, SET_NOTES, DELETE_TRAVEL } from '../Constants';
+import { SET_TRAVEL_INFO, SET_NOTES, DELETE_TRAVEL, TOGGLE_NOTES } from '../Constants';
 
 const initialState = {
     init: false,
@@ -7,6 +7,7 @@ const initialState = {
     location: "",
     updatedDate: null,
     departureDate: null,
+    displayNotes: true
 };
 
 export default (state = initialState, action) => {
@@ -28,6 +29,10 @@ export default (state = initialState, action) => {
 
         case DELETE_TRAVEL:
             return initialState;
+
+        case TOGGLE_NOTES:
+            newstate.displayNotes = !state.displayNotes;
+            return newstate;
 
         default:
             return state;

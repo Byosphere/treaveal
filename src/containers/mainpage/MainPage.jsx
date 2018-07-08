@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ListItem, Avatar, ListItemText, List, ListItemSecondaryAction, IconButton, Chip, Menu, MenuItem, Button, Divider, TextField } from '@material-ui/core';
-import ImageIcon from '@material-ui/icons/Image';
+import LocationCity from '@material-ui/icons/LocationCity';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Delete from '@material-ui/icons/Delete';
 import LocalActivity from '@material-ui/icons/LocalActivity';
@@ -135,14 +135,14 @@ class MainPage extends React.Component {
                 <div className="app-bar"><Dashboard /><h2>{T.translate("overview")}</h2></div>
                 <Timeline></Timeline>
                 <div className="wrapper">
-                    <div className="page-people">
+                    <div className="day-tags">
                         <Chip
                             avatar={
                                 <Avatar>
-                                    <AccessTime />
+                                    <LocationCity />
                                 </Avatar>
                             }
-                            label={new Date(this.state.day.date).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                            label="Guangzhou"
                         />
                     </div>
                     <div className="buttons">
@@ -151,19 +151,14 @@ class MainPage extends React.Component {
                         </IconButton>
                         <DeleteDayDialog open={this.state.deleteDayDialogOpen} onClose={() => { this.setState({ deleteDayDialogOpen: false }) }} onDelete={this.deleteDay} />
                     </div>
-                    <Divider />
                     <header>
                         <h2>{T.translate('day')} {this.state.currentDay + 1}</h2>
-                        <TextField
-                            id="full-width"
-                            placeholder="day name"
-                            fullWidth
-                            margin="normal"
-                        />
-                        <Button color="primary">
-                            {T.translate('save')}
-                        </Button>
+                        <div className="subtitle">
+                            <span className="day-date">{new Date(this.state.day.date).toLocaleDateString(getNavigatorLanguage(true), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                            <span className="day-name">{this.state.day.name || "___"}</span>
+                        </div>
                     </header>
+                    <Divider />
                     <List>
                         {list.length === 0 && (
                             <li className="button-list">
