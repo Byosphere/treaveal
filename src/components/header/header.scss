@@ -2,6 +2,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+
+    .drawer-button {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
     .title {
         display: flex;
         flex-direction: column;
@@ -28,4 +36,17 @@
     .departure {
         margin-right: 10px;
     }
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        justify-content: center;
+
+        .drawer-button {
+            display: block;
+        }   
+    }
+}
+
+.responsive-drawer {
+    min-width: 300px;
+    height: 100%;
 }

@@ -56,9 +56,9 @@ class Toolbox extends React.Component {
         return (
             <section className="toolbox">
                 <ul>
-                    <li>
-                        <Tooltip id="tooltip-new" title="Add a short text to the current day" placement="bottom">
-                            <IconButton onClick={this.toggleN} color={this.state.displayNote ? "inherit" : "primary"} aria-label="New">
+                    <li className="toggle-notes">
+                        <Tooltip id="tooltip-note" title={T.translate('display-notes')} placement="bottom">
+                            <IconButton onClick={this.toggleN} color={this.state.displayNote ? "inherit" : "primary"} className={this.state.displayNote ? "off" : "on"} aria-label="notes">
                                 <Today />
                             </IconButton>
                         </Tooltip>

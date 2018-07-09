@@ -12,7 +12,7 @@ import Sidebar from '../../components/sidebar/Sidebar.jsx';
 import Notes from '../../components/notes/Notes.jsx';
 import Toolbox from '../../components/toolbox/Toolbox.jsx';
 import Hotelbox from '../../components/hotelbox/Hotelbox.jsx';
-import Flight from '../../components/flight/Flight.jsx';
+import Todo from '../../components/todo/Todo.jsx';
 import Login from '../../components/login/Login.jsx';
 import T from 'i18n-react';
 
@@ -34,7 +34,7 @@ class Home extends React.Component {
                     <Header></Header>
                     <Login></Login>
                     <Sidebar></Sidebar>
-                    <Flight></Flight>
+                    <Todo></Todo>
                     <Toolbox></Toolbox>
                     <Notes></Notes>
                     <Switch>

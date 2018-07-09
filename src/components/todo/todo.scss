@@ -1,0 +1,15 @@
+@import "../../style/variables.scss";
+
+.todo-list {
+    background: $blue-menu;
+
+    h2 {
+        color: $white;
+        font-weight: 300;
+        margin-left: 10px;
+    }
+
+    hr {
+        background-color: white;
+    }
+}

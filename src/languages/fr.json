@@ -1,6 +1,7 @@
 {
     "app-name": "TREVEAL",
     "app-subtitle": "dashboard",
+    "checklist": "Checklist",
     "header": {
         "search": "Chercher un voyage",
         "updated": "Mis à jour le",
@@ -33,6 +34,7 @@
         "unsaved": "Vous devez vous connecter pour enregistrer vos modifications."
     },
     "notes": "Notes générales",
+    "display-notes": "Affiche ou masque l'onglet des notes",
     "create-day": "Ajouter un jour",
     "day": "jour",
     "confirm-delete-day": "Etes-vous sur de vouloir supprimer ce jour ? (Les données seront perdues)",
@@ -49,6 +51,7 @@
     },
     "event": {
         "no-event": "Rien n'a été défini ce jour.",
-        "add": "Ajouter un événement"
+        "add": "Ajouter un évènement",
+        "type": "Type d'évènement :"
     }
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import IconButton from '@material-ui/core/IconButton';
+import { IconButton, Drawer } from '@material-ui/core';
 import Edit from '@material-ui/icons/Edit';
+import Dehaze from '@material-ui/icons/Dehaze';
 import AccessTime from '@material-ui/icons/AccessTime'
 import TravelDialog from '../dialog/traveldialog/TravelDialog.jsx';
 import { saveTravelInfo } from '../../actions/travelActions';
@@ -20,12 +21,14 @@ class Header extends React.Component {
             title: this.props.title || '',
             location: this.props.location,
             updatedDate: this.props.updatedDate,
-            departureDate: this.props.departureDate
+            departureDate: this.props.departureDate,
+            drawerOpen: false
         }
 
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSave = this.handleSave.bind(this);
+        this.toggleDrawer = this.toggleDrawer.bind(this);
     }
 
     handleClick() {
@@ -38,6 +41,12 @@ class Header extends React.Component {
         this.setState({
             open: false,
         })
+    }
+
+    toggleDrawer() {
+        this.setState({
+            drawerOpen: !this.state.drawerOpen
+        });
     }
 
     handleSave(title, location, daysNum) {
@@ -60,6 +69,21 @@ class Header extends React.Component {
     render() {
         return (
             <section className="app-header">
+                <IconButton className="drawer-button" onClick={this.toggleDrawer}>
+                    <Dehaze />
+                </IconButton>
+                <Drawer open={this.state.drawerOpen} onClose={this.toggleDrawer}>
+                    <div
+                        tabIndex={0}
+                        role="button"
+                        onClick={this.toggleDrawer}
+                        onKeyDown={this.toggleDrawer}
+                    >
+                        <div className="responsive-drawer">
+                            sqdq
+                        </div>
+                    </div>
+                </Drawer>
                 <div className="title">
                     <h1>{getCountryFromCountryCode(this.state.location)} :
                     <span>{this.state.title}</span>
