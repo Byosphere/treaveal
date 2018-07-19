@@ -135,22 +135,6 @@ class MainPage extends React.Component {
                 <div className="app-bar"><Dashboard /><h2>{T.translate("overview")}</h2></div>
                 <Timeline></Timeline>
                 <div className="wrapper">
-                    <div className="day-tags">
-                        <Chip
-                            avatar={
-                                <Avatar>
-                                    <LocationCity />
-                                </Avatar>
-                            }
-                            label="Guangzhou"
-                        />
-                    </div>
-                    <div className="buttons">
-                        <IconButton aria-haspopup="true" className={this.props.days.length === 1 ? "icon-button disabled" : "icon-button"} onClick={this.openDeleteDayDialog} aria-label="delete" disabled={this.props.days.length === 1}>
-                            <Delete />
-                        </IconButton>
-                        <DeleteDayDialog open={this.state.deleteDayDialogOpen} onClose={() => { this.setState({ deleteDayDialogOpen: false }) }} onDelete={this.deleteDay} />
-                    </div>
                     <header>
                         <h2>{T.translate('day')} {this.state.currentDay + 1}</h2>
                         <div className="subtitle">
@@ -158,6 +142,28 @@ class MainPage extends React.Component {
                             <span className="day-name">{this.state.day.name || "___"}</span>
                         </div>
                     </header>
+                    <div className="day-tags">
+                        {day.places && day.places.map(data => {
+                            return (
+                                <Chip
+                                    avatar={
+                                        <Avatar>
+                                            <LocationCity />
+                                        </Avatar>
+                                    }
+                                    key={data.key}
+                                    label={data.label}
+                                />
+                            );
+                        })}
+                        <span className="day-summary">{day.summary}</span>
+                    </div>
+                    <div className="buttons">
+                        <IconButton aria-haspopup="true" className={this.props.days.length === 1 ? "icon-button disabled" : "icon-button"} onClick={this.openDeleteDayDialog} aria-label="delete" disabled={this.props.days.length === 1}>
+                            <Delete />
+                        </IconButton>
+                        <DeleteDayDialog open={this.state.deleteDayDialogOpen} onClose={() => { this.setState({ deleteDayDialogOpen: false }) }} onDelete={this.deleteDay} />
+                    </div>
                     <Divider />
                     <List>
                         {list.length === 0 && (
