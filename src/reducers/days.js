@@ -12,11 +12,12 @@ export default (state = initialState, action) => {
     switch (action.type) {
 
         case SET_DAY:
-            if (!action.dayNum) {
+            if (action.dayNum === undefined) {
                 if (!action.day.date) {
                     let lastDate = new Date(newstate.list[newstate.nbDays - 1].date)
                     action.day.date = formatDate(lastDate.setDate(lastDate.getDate() + 1));
                 }
+                if(!action.day.places) action.day.places = [];
                 newstate.list.push(action.day);
                 newstate.currentDay = newstate.nbDays;
                 newstate.nbDays++;

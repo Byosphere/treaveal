@@ -8,6 +8,9 @@ import TravelDialog from '../dialog/traveldialog/TravelDialog.jsx';
 import { saveTravelInfo } from '../../actions/travelActions';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Login from '../../components/login/Login.jsx';
+import HotelBox from '../../components/hotelbox/Hotelbox.jsx';
+import Notes from '../../components/notes/Notes.jsx';
 import { getCountryFromCountryCode, getNavigatorLanguage, daysBetween } from '../../utils/helpers';
 import T from 'i18n-react';
 
@@ -80,7 +83,9 @@ class Header extends React.Component {
                         onKeyDown={this.toggleDrawer}
                     >
                         <div className="responsive-drawer">
-                            sqdq
+                            <Login></Login>
+                            <HotelBox></HotelBox>
+                            <Notes></Notes>
                         </div>
                     </div>
                 </Drawer>

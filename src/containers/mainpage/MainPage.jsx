@@ -16,6 +16,7 @@ import { EVENT_ACTIVITY, EVENT_TEXT, EVENT_TRANSPORT } from '../../Constants';
 import T from 'i18n-react';
 import { getNavigatorLanguage } from '../../utils/helpers';
 import EventDialog from '../../components/dialog/eventdialog/EventDialog.jsx';
+import DayDialog from '../../components/dialog/daydialog/DayDialog.jsx';
 
 class MainPage extends React.Component {
 
@@ -26,11 +27,13 @@ class MainPage extends React.Component {
             anchor: null,
             day: this.props.days[this.props.currentDay],
             currentDay: this.props.currentDay,
-            open: false,
+            daydialogOpen: false,
             deleteDayDialogOpen: false,
             eventDialogOpen: false,
-            currentEvent: {}
+            currentEvent: {},
+            editDay: null
         }
+
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.openDayDialog = this.openDayDialog.bind(this);
@@ -53,28 +56,29 @@ class MainPage extends React.Component {
 
     openDayDialog() {
         this.setState({
-            open: true,
+            daydialogOpen: true,
+            editDay: null
         });
     }
 
     saveDayDialog(day) {
-        day.date = this.props.arrival;
-        this.props.setDay(day);
+        this.props.setDay(day, this.state.currentDay);
         this.setState({
-            open: false,
+            daydialogOpen: false,
             day
         });
     }
 
     closeDayDialog() {
         this.setState({
-            open: false,
+            daydialogOpen: false,
         });
     }
 
     openDeleteDayDialog() {
         this.setState({
-            deleteDayDialogOpen: true
+            deleteDayDialogOpen: true,
+            editDay: null
         });
     }
 
@@ -159,9 +163,17 @@ class MainPage extends React.Component {
                         <span className="day-summary">{day.summary}</span>
                     </div>
                     <div className="buttons">
-                        <IconButton aria-haspopup="true" className={this.props.days.length === 1 ? "icon-button disabled" : "icon-button"} onClick={this.openDeleteDayDialog} aria-label="delete" disabled={this.props.days.length === 1}>
-                            <Delete />
+                        <IconButton aria-haspopup="true" onClick={(evt) => { this.setState({ editDay: evt.currentTarget }) }} aria-label="edit" aria-owns="day-menu">
+                            <MoreVertIcon />
                         </IconButton>
+                        <Menu
+                            id={"day-menu"}
+                            anchorEl={this.state.editDay}
+                            open={Boolean(this.state.editDay)}
+                            onClose={() => { this.setState({ editDay: null }) }}>
+                            <MenuItem onClick={this.openDayDialog}>Edit</MenuItem>
+                            <MenuItem disabled={this.props.days.length === 1} onClick={this.openDeleteDayDialog}>Delete</MenuItem>
+                        </Menu>
                         <DeleteDayDialog open={this.state.deleteDayDialogOpen} onClose={() => { this.setState({ deleteDayDialogOpen: false }) }} onDelete={this.deleteDay} />
                     </div>
                     <Divider />
@@ -207,6 +219,7 @@ class MainPage extends React.Component {
                     </List>
                 </div>
                 <EventDialog event={this.state.currentEvent} open={this.state.eventDialogOpen} onClose={this.closeEvenDialog} onSave={this.saveEventDialog} ></EventDialog>
+                <DayDialog day={this.state.day} open={this.state.daydialogOpen} onClose={this.closeDayDialog} onSave={this.saveDayDialog} ></DayDialog>
             </section >
         );
     }

@@ -8,11 +8,14 @@ class DayDialog extends React.Component {
 	constructor(props) {
 		super(props);
 
+		const day = this.props.day;
 		this.state = {
-			name: '',
-			summary: '',
+			day: day,
+			name: day ? day.name : '',
+			summary: day ? day.summary : '',
 			draftPlace: '',
-			places: [],
+			places: day ? day.places : [],
+			date: day ? day.date : ''
 		}
 
 		this.handleClose = this.handleClose.bind(this);
@@ -22,18 +25,25 @@ class DayDialog extends React.Component {
 		this.handleDelete = this.handleDelete.bind(this);
 	}
 
-	handleClose() {
+	init(day) {
 		this.setState({
-			name: ''
+			day: day,
+			name: day ? day.name : '',
+			summary: day ? day.summary : '',
+			draftPlace: '',
+			places: day ? day.places : [],
+			date: day ? day.date : '',
 		});
+	}
+
+	handleClose() {
 		this.props.onClose();
+		this.init(this.props.day);
 	}
 
 	handleSave() {
 		this.props.onSave(Object.assign({}, this.state));
-		this.setState({
-			name: ''
-		});
+		this.init(this.props.day);
 	}
 
 	handleChange(name, event) {
@@ -61,8 +71,21 @@ class DayDialog extends React.Component {
 		});
 	}
 
-	render() {
+	static getDerivedStateFromProps(props, state) {
+		if (props.day !== state.day) {
+			return {
+				day: props.day,
+				name: props.day ? props.day.name : '',
+				summary: props.day ? props.day.summary : '',
+				draftPlace: '',
+				places: props.day ? props.day.places : [],
+				date: props.day ? props.day.date : ''
+			}
+		}
+		return null;
+	}
 
+	render() {
 		return (
 			<Dialog open={this.props.open} onClose={this.handleClose} aria-labelledby="day-dialog" className="day-dialog dialog" >
 				<DialogTitle id="day-dialog-title">{T.translate('create-day')}</DialogTitle>
@@ -76,6 +99,16 @@ class DayDialog extends React.Component {
 							onChange={(evt) => this.handleChange('name', evt)}
 							margin="normal"
 							fullWidth
+						/>
+						<TextField
+							id="date"
+							label="Date"
+							type="date"
+							value={this.state.date}
+							onChange={(evt) => this.handleChange('date', evt)}
+							InputLabelProps={{
+								shrink: true,
+							}}
 						/>
 						<TextField
 							id="summary"

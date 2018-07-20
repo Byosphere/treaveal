@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Divider, InputLabel, Select, MenuItem } from '@material-ui/core';
+import Flight from '@material-ui/icons/Flight';
 import LocalActivity from '@material-ui/icons/LocalActivity';
+import ShortText from '@material-ui/icons/ShortText';
 import T from 'i18n-react';
 import { EVENT_ACTIVITY, EVENT_TRANSPORT, EVENT_TEXT } from '../../../Constants';
 
@@ -55,8 +57,8 @@ class EventDialog extends React.Component {
 							id: 'type',
 						}}>
 						<MenuItem value={EVENT_ACTIVITY}><LocalActivity /> {T.translate('activity')}</MenuItem>
-						<MenuItem value={EVENT_TRANSPORT}>{T.translate('transport')}</MenuItem>
-						<MenuItem value={EVENT_TEXT}>{T.translate('text')}</MenuItem>
+						<MenuItem value={EVENT_TRANSPORT}><Flight /> {T.translate('transport')}</MenuItem>
+						<MenuItem value={EVENT_TEXT}><ShortText /> {T.translate('text')}</MenuItem>
 					</Select>
 				</DialogContent>
 				<DialogActions>

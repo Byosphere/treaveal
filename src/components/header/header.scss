@@ -3,7 +3,6 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
-
     .drawer-button {
         display: none;
         position: absolute;
@@ -39,10 +38,13 @@
     @media screen and (max-width: 1000px) {
         flex-direction: column;
         justify-content: center;
-
+        margin-bottom: 10px;
+        .departure {
+            margin-right: 0px;
+        }
         .drawer-button {
             display: block;
-        }   
+        }
     }
 }
 

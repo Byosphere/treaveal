@@ -7,6 +7,9 @@
             position: absolute;
             top: 0px;
             right: 10px;
+            button {
+                color: white;
+            }
             .icon-button {
                 color: $white;
                 &.disabled {
@@ -30,6 +33,7 @@
         display: flex;
         top: 60px;
         left: 15px;
+        width: calc(100% - 30px);
         &>div {
             margin-right: 5px;
             text-transform: capitalize;
