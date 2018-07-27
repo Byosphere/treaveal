@@ -15,7 +15,6 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-
         &>div {
             width: 50%;
             text-align: center;
@@ -23,13 +22,5 @@
     }
     .image {
         height: 150px;
-    }
-
-    .hotel-title {
-        display: flex;
-        align-items: center;
-        svg {
-            margin-right: 10px;
-        }
     }
 }

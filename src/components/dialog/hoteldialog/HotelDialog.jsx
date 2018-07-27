@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControlLabel, Checkbox, Divider } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControlLabel, Checkbox, Divider, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { HOTEL_TYPES } from '../../../Constants';
 import T from 'i18n-react';
 
 class HotelDialog extends React.Component {
@@ -9,6 +10,7 @@ class HotelDialog extends React.Component {
         super(props);
         this.state = {
             name: this.props.hotel.name,
+            type: this.props.hotel.type || 1,
             checkIn: this.props.hotel.checkIn,
             checkOut: this.props.hotel.checkOut,
             phone: this.props.hotel.phone,
@@ -26,6 +28,7 @@ class HotelDialog extends React.Component {
     handleClose() {
         this.setState({
             name: '',
+            type: '',
             checkIn: this.props.date,
             checkOut: '',
             phone: '',
@@ -47,6 +50,12 @@ class HotelDialog extends React.Component {
         });
 
         if (!this.state.name) {
+            this.setState({
+                nameError: T.translate('error-message')
+            });
+            valid = false;
+        }
+        if (!this.state.type) {
             this.setState({
                 nameError: T.translate('error-message')
             });
@@ -113,6 +122,22 @@ class HotelDialog extends React.Component {
                         helperText={this.state.nameError}
                         onChange={(evt) => this.handleChange('name', evt)}
                     />
+                    <InputLabel htmlFor="hotel-type">{T.translate("hotel.type.label")}</InputLabel>
+                    <Select
+                        value={this.state.type}
+                        onChange={(evt) => this.handleChange('type', evt)}
+                        fullWidth
+                        inputProps={{
+                            name: 'type',
+                            id: 'hotel-type',
+                        }}>
+                        {HOTEL_TYPES.map(data => {
+                            return (
+                                <MenuItem key={data.id} value={data.id}>{T.translate("hotel.type." + data.translationKey)}</MenuItem>
+                            );
+                        })
+                        }
+                    </Select>
                     <TextField
                         id="hotel-checkin"
                         value={this.state.checkIn}
@@ -171,9 +196,9 @@ class HotelDialog extends React.Component {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button disabled={!this.props.hotel} onClick={this.handleClose} color="secondary">
+                    {this.props.edit && <Button onClick={this.handleClose} color="secondary">
                         {T.translate('hotel.delete')}
-                    </Button>
+                    </Button>}
                     <Button onClick={this.handleClose}>
                         {T.translate('cancel')}
                     </Button>
@@ -190,7 +215,8 @@ HotelDialog.propTypes = {
     'open': PropTypes.bool.isRequired,
     'onClose': PropTypes.func.isRequired,
     'onSave': PropTypes.func.isRequired,
-    'hotel': PropTypes.object.isRequired
+    'hotel': PropTypes.object.isRequired,
+    'edit': PropTypes.bool
 }
 
 export default HotelDialog;

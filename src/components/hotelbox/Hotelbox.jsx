@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Typography, CardContent, Button, Divider } from '@material-ui/core';
+import { Card, Typography, CardContent, Button, Divider, CardHeader, IconButton } from '@material-ui/core';
 import { setHotel } from '../../actions/dayActions';
 import AddIcon from '@material-ui/icons/Add';
-import Home from '@material-ui/icons/Home';
+import Edit from '@material-ui/icons/Edit';
 import HotelDialog from '../dialog/hoteldialog/HotelDialog.jsx';
 import T from 'i18n-react';
 import { getNavigatorLanguage } from '../../utils/helpers';
@@ -60,12 +60,16 @@ class Hotelbox extends React.Component {
             return (
                 <section className="hotel-details">
                     <Card raised={true} classes={{ root: "card" }}>
+                        <CardHeader
+                            action={
+                                <IconButton onClick={this.handleClick}>
+                                    <Edit />
+                                </IconButton>
+                            }
+                            title={this.state.day.hotel.name}
+                            subheader={this.state.day.hotel.type || 'Hotel'}
+                        />
                         <CardContent>
-                            <Typography className="hotel-title" gutterBottom variant="headline" component="h2">
-                                <Home />
-                                {this.state.day.hotel.name}
-                            </Typography>
-                            <Divider />
                             <div className="hotel-info">
                                 <div>
                                     <p><b>{T.translate('hotel.check-in')}</b></p>
@@ -83,6 +87,7 @@ class Hotelbox extends React.Component {
                                 <b>{T.translate('hotel.phone')} : </b>{this.state.day.hotel.phone}
                             </p>
                         </CardContent>
+                        <HotelDialog edit={true} hotel={this.state.day.hotel || { checkIn: this.state.day.date }} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave}></HotelDialog>
                     </Card>
                 </section>
             );
@@ -94,7 +99,7 @@ class Hotelbox extends React.Component {
                         <Button onClick={this.handleClick} variant="fab" color="primary" aria-label="add" >
                             <AddIcon />
                         </Button>
-                        <HotelDialog hotel={this.state.day.hotel || {checkIn:this.state.day.date}} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave}></HotelDialog>
+                        <HotelDialog hotel={this.state.day.hotel || { checkIn: this.state.day.date }} open={this.state.open} onClose={this.handleClose} onSave={this.handleSave}></HotelDialog>
                     </Card>
                 </section>
             );

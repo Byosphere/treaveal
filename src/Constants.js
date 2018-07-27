@@ -14,3 +14,13 @@ export const EVENT_TRANSPORT = "event_transport";
 export const TOGGLE_NOTES = 'toggle_notes';
 
 export const COUNTRY_CODES = require(`./data/country-codes.json`);
+export const HOTEL_TYPES = [
+	{ id: 1, codename: "hotel", translationKey: "hotel-type" },
+	{ id: 2, codename: "Auberge de Jeunesse", translationKey: "youth-type" },
+	{ id: 3, codename: "Appartement", translationKey: "appart-type" },
+	{ id: 4, codename: "Maison d'hôte", translationKey: "host-type" },
+	{ id: 5, codename: "Chez l'habitant", translationKey: "home-type" },
+	{ id: 6, codename: "Villa", translationKey: "villa-type" },
+	{ id: 7, codename: "Gite", translationKey: "gite-type" },
+	{ id: 8, codename: "Hotel capsule", translationKey: "caps-type" },
+]

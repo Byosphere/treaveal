@@ -47,7 +47,18 @@
         "address": "Adresse",
         "autocomplete": "Ajouter dynamiquement les jours suivants à partir des dates renseignées",
         "delete": "Supprimer l'hébergement",
-        "error-hotel-date": "La date de départ ne peut être avant la date d'arrivée"
+        "error-hotel-date": "La date de départ ne peut être avant la date d'arrivée",
+        "type": {
+            "label": "Type d'hébergement",
+            "hotel-type": "Hôtel",
+            "youth-type": "Auberge de jeunesse",
+            "appart-type": "Appartement",
+            "host-type": "Chambre d'hôte",
+            "home-type": "Chez l'habitant",
+            "villa-type": "Villa",
+            "gite-type": "Gîte",
+            "caps-type": "Hôtel Capsule"
+        }
     },
     "event": {
         "no-event": "Rien n'a été défini ce jour.",
